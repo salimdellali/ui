@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Form inputs</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.field-label { display:block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.input, .select, .textarea { width: 100%; font-family: var(--font-body); font-size: 14px; padding: 9px 12px; border: 1px solid #d8d8de; border-radius: 3px; background: #fff; color: #0a0a0a; box-sizing: border-box; }
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Custom chevron — 12px right inset matches the 12px left text inset */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%230a0a0a' stroke-width='1.5' stroke-linecap='square'><path d='M1 1.5 L6 6.5 L11 1.5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  padding-right: 32px; /* 12px gutter + 12px chevron + 8px breathing */
+}
+.select::-ms-expand { display: none; }
+.input:focus { outline: 2px solid #0a0a0a; outline-offset: 2px; border-color: #0a0a0a; }
+.help { font-size: 12px; color: #6b6b75; margin-top: 4px; }
+.check-row { display:flex; align-items:center; gap:8px; font-size:14px; }
+.check-row input { accent-color: #0a0a0a; width:16px; height:16px; }
+</style></head>
+<body>
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 14px;">
+    <div>
+      <label class="field-label">Email</label>
+      <input class="input" type="email" placeholder="you@example.com" value="salim@dellali.dev">
+      <div class="help">Used to reply, never shared.</div>
+    </div>
+    <div>
+      <label class="field-label">Project type</label>
+      <select class="select"><option>Marketing site</option><option>Web app</option><option>API</option></select>
+    </div>
+    <div style="grid-column: 1 / -1;">
+      <label class="field-label">Message</label>
+      <textarea class="textarea" rows="2" placeholder="Tell me about the project…"></textarea>
+    </div>
+    <div class="check-row"><input id="c1" type="checkbox" checked><label for="c1">Subscribe to updates</label></div>
+    <div class="check-row"><input id="r1" type="radio" name="r" checked><label for="r1">Public</label> <input id="r2" type="radio" name="r" style="margin-left:14px;"><label for="r2">Private</label></div>
+  </div>
+</body></html>

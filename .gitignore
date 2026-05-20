@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+storybook-static/
+
+# env
+.env
+.env.local
+
+# OS
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# Claude Code local machine config (not shared)
+.claude/settings.local.json

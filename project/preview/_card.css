@@ -1,0 +1,33 @@
+/* Shared styles for preview cards. Each card is ~700px wide. */
+@import url("../colors_and_type.css");
+
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body {
+  padding: var(--sp-5);
+  font-family: var(--font-body);
+  color: var(--fg);
+}
+.card-pad { padding: var(--sp-5); }
+.row { display: flex; gap: var(--sp-3); align-items: center; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: var(--sp-3); }
+.grid { display: grid; gap: var(--sp-3); }
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--fg-subtle);
+}
+.mono { font-family: var(--font-mono); font-size: var(--fs-sm); }
+.swatch {
+  width: 100%;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  min-height: 72px;
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Banners</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.alert { display:flex; gap:10px; padding:12px 14px; border:1px solid; border-radius:3px; align-items:flex-start; font-size:14px; }
+.alert .ic {
+  flex-shrink:0;
+  width: 18px; height: 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.alert .ic svg { width: 18px; height: 18px; stroke-width: 1.75; }
+.alert-success { background:#e6f3ec; border-color:#bcdcc8; color:#1f5d36; }
+.alert-success .ic { color:#2a7d49; }
+.alert-warning { background:#fbf2d9; border-color:#ead7a0; color:#7a5808; }
+.alert-warning .ic { color:#d49d12; }
+.alert-danger  { background:#f9e1dc; border-color:#e9b8ae; color:#7d2317; }
+.alert-danger .ic { color:#a8311f; }
+.alert-info    { background:#d9eef1; border-color:#a8d6dd; color:#125e68; }
+.alert-info .ic { color:#1a8997; }
+</style></head>
+<body>
+  <div class="col" style="gap: 8px;">
+    <div class="alert alert-success">
+      <span class="ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>
+      <div><strong>Saved.</strong> Your changes are live.</div>
+    </div>
+    <div class="alert alert-warning">
+      <span class="ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </span>
+      <div><strong>Unsaved changes.</strong> Leaving will discard them.</div>
+    </div>
+    <div class="alert alert-danger">
+      <span class="ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </span>
+      <div><strong>Connection failed.</strong> Retry in a moment.</div>
+    </div>
+    <div class="alert alert-info">
+      <span class="ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </span>
+      <div><strong>3 updates available.</strong> Run <code>pnpm update</code>.</div>
+    </div>
+  </div>
+  <div class="label" style="margin-top:12px;line-height:1.5;">
+    Lucide stroke icons (1.75 weight, 18px) replace the text glyphs — quieter, system-consistent, and they inherit the banner's semantic color via <code>currentColor</code>.
+  </div>
+</body></html>

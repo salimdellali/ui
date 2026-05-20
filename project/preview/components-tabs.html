@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tabs & accordion</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.tabs { display:flex; gap:0; border-bottom:1px solid #d8d8de; }
+.tab { padding: 10px 16px; font-size:14px; font-weight:500; cursor:pointer; color:#6b6b75; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color:#0a0a0a; border-bottom-color:#0a0a0a; }
+.acc { border:1px solid #d8d8de; border-radius:3px; overflow:hidden; background:#fff; }
+.acc-item { border-bottom:1px solid #ececef; }
+.acc-item:last-child { border-bottom:0; }
+.acc-head {
+  width:100%; display:flex; justify-content:space-between; align-items:center;
+  padding: 12px 14px; font-weight:500; font-size:14px; cursor:pointer;
+  background: transparent; border: 0; color:#0a0a0a; font-family: inherit; text-align:left;
+}
+.acc-head:hover { background: #f7f7f9; }
+.acc-body { padding: 0 14px 12px; color:#4a4a52; font-size:14px; }
+.chev {
+  width: 16px; height: 16px;
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  color: #6b6b75;
+}
+.chev svg { width: 16px; height: 16px; stroke-width: 1.75; display:block; }
+.acc-item.open .chev { transform: rotate(180deg); }
+.acc-item.open .acc-head { color: #0a0a0a; }
+.acc-item.open .chev { color: #0a0a0a; }
+</style></head>
+<body>
+  <div class="col" style="gap:14px;">
+    <div class="tabs"><div class="tab active">Overview</div><div class="tab">Code</div><div class="tab">Issues</div><div class="tab">Pull requests</div></div>
+    <div class="acc" id="acc">
+      <div class="acc-item open">
+        <button class="acc-head" aria-expanded="true">
+          <span>What stack do you use?</span>
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+        <div class="acc-body">TypeScript, React, Postgres. Sometimes Rust for systems work.</div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span>Are you taking new clients?</span>
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false">
+          <span>Where are you based?</span>
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="label" style="line-height:1.5;">
+      Chevron-down at rest, rotates 180° to chevron-up when open. 16px Lucide-style stroke (1.75), inherits <code>currentColor</code>, animates with the standard 180ms ease-out.
+    </div>
+  </div>
+<script>
+  document.querySelectorAll('#acc .acc-head').forEach(head => {
+    head.addEventListener('click', () => {
+      const item = head.closest('.acc-item');
+      const open = item.classList.toggle('open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const body = item.querySelector('.acc-body');
+      // Toggle body visibility for items without preset bodies
+      if (open && !body) {
+        const note = document.createElement('div');
+        note.className = 'acc-body';
+        note.textContent = 'More detail here.';
+        item.appendChild(note);
+      }
+    });
+  });
+</script>
+</body></html>

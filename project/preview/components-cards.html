@@ -1,0 +1,72 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cards</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.card { background:#fff; border:1px solid #d8d8de; border-radius:3px; padding:16px; position:relative; }
+.card-featured { padding-top:18px; overflow:hidden; }
+.card-featured::before {
+  content:''; position:absolute; left:0; right:0; top:0; height:4px;
+  background: var(--accent, #1f1f23);
+}
+.card h4 { margin: 0 0 4px; font-size:18px; }
+.card p { margin: 0; color: #4a4a52; font-size:14px; }
+.tags { display:flex; gap:6px; margin-top:10px; }
+.tag { font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; background: #ececef; border-radius: 9999px; color:#2a2a30; }
+.swatch-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+.swatch-row button { width:24px; height:24px; border-radius:3px; border:2px solid transparent; cursor:pointer; padding:0; }
+.swatch-row button[aria-pressed="true"] { border-color:#1f1f23; }
+</style></head>
+<body>
+  <div class="col" style="gap:8px;">
+    <div class="label">Featured top accent — single color, customizable per card via <code>--card-accent</code></div>
+    <div class="swatch-row" id="picker">
+      <button data-c="#1f1f23" style="background:#1f1f23" aria-pressed="true" title="Ink"></button>
+      <button data-c="#f6c544" style="background:#f6c544" title="Yellow"></button>
+      <button data-c="#d8442e" style="background:#d8442e" title="Red"></button>
+      <button data-c="#2eb6c4" style="background:#2eb6c4" title="Cyan"></button>
+      <button data-c="#7c4dff" style="background:#7c4dff" title="Purple"></button>
+      <button data-c="#3fa566" style="background:#3fa566" title="Green"></button>
+      <button data-c="#1ed760" style="background:#1ed760" title="Lime"></button>
+      <button data-c="#7d2336" style="background:#7d2336" title="Maroon"></button>
+    </div>
+  </div>
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-top:12px;">
+    <div class="card card-featured" id="cardA" style="--accent:#1f1f23;">
+      <div class="eyebrow" style="margin-bottom:6px;">FEATURED · 2026</div>
+      <h4>Postgres rename CLI</h4>
+      <p>A small Node tool for batch-renaming database columns safely.</p>
+      <div class="tags"><span class="tag">node</span><span class="tag">postgres</span></div>
+    </div>
+    <div class="card card-featured" style="--accent:#7c4dff;">
+      <div class="eyebrow" style="margin-bottom:6px;">FEATURED · 2025</div>
+      <h4>Toolbar.dev</h4>
+      <p>A keyboard-first launcher for macOS built with Tauri.</p>
+      <div class="tags"><span class="tag">rust</span><span class="tag">tauri</span></div>
+    </div>
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:6px;">PROJECT · 2024</div>
+      <h4>askmd</h4>
+      <p>Ask questions about a folder of markdown notes from the CLI.</p>
+      <div class="tags"><span class="tag">python</span><span class="tag">llm</span></div>
+    </div>
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:6px;">PROJECT · 2024</div>
+      <h4>fp-postal</h4>
+      <p>Functional address parser for Canadian postal data.</p>
+      <div class="tags"><span class="tag">typescript</span></div>
+    </div>
+  </div>
+  <div class="label" style="margin-top:12px;line-height:1.5;">
+    Default cards are clean — 1px border, sharp corners, no top accent. The <strong>featured</strong> variant adds a 4px solid top stripe in any one color, defaulting to ink. Set per-card via inline <code>style="--card-accent: #7c4dff"</code>. The 4-color brand stripe is reserved for global motifs (nav, footer, dividers).
+  </div>
+<script>
+  const picker = document.getElementById('picker');
+  const cardA = document.getElementById('cardA');
+  picker.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...picker.children].forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    cardA.style.setProperty('--accent', btn.dataset.c);
+  });
+</script>
+</body></html>

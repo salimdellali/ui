@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Stripe motif</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  /* Brand quartet — yellow, red, cyan, purple */
+  :root {
+    --y: #f6c544; --r: #d8442e; --c: #2eb6c4; --p: #7c4dff;
+  }
+  .stripe-hard { height:8px; background:linear-gradient(90deg,var(--y) 0 25%,var(--r) 25% 50%,var(--c) 50% 75%,var(--p) 75% 100%); }
+  .stripe-soft { height:8px; background:linear-gradient(90deg,var(--y),var(--r),var(--c),var(--p)); }
+  .featured-card { border:1px solid var(--border); border-radius:3px; overflow:hidden; background:#fff; }
+  .featured-card .accent { height:4px; background: var(--accent, var(--ink)); }
+  .swatch-row { display:flex; gap:6px; }
+  .swatch-row button { flex:0 0 auto; width:28px; height:28px; border-radius:3px; border:2px solid transparent; cursor:pointer; padding:0; }
+  .swatch-row button[aria-pressed="true"] { border-color: var(--ink); }
+</style>
+</head>
+<body>
+  <div class="col" style="gap: 12px;">
+    <div class="label">Brand quartet — yellow · red · cyan · purple</div>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:6px;">
+      <div class="swatch" style="background:#f6c544;min-height:54px;"><span>Yellow</span><span style="opacity:.8;">#f6c544</span></div>
+      <div class="swatch" style="background:#d8442e;color:#fff;min-height:54px;"><span>Red</span><span style="opacity:.8;">#d8442e</span></div>
+      <div class="swatch" style="background:#2eb6c4;color:#fff;min-height:54px;"><span>Cyan</span><span style="opacity:.8;">#2eb6c4</span></div>
+      <div class="swatch" style="background:#7c4dff;color:#fff;min-height:54px;"><span>Purple</span><span style="opacity:.85;">#7c4dff</span></div>
+    </div>
+
+    <div class="label" style="margin-top:10px;">Hard-edge stripe (signature) — used in nav, footer caps, dividers</div>
+    <div class="stripe-hard"></div>
+
+    <div class="label" style="margin-top:8px;">Soft-blend stripe (alt) — for hero washes, large surfaces</div>
+    <div class="stripe-soft"></div>
+
+    <div class="label" style="margin-top:14px;">Featured-card top accent — single, customizable color</div>
+    <div class="row" style="gap:10px;align-items:center;margin-bottom:8px;">
+      <span style="font-size:12px;color:var(--fg-muted);">Pick:</span>
+      <div class="swatch-row" id="picker">
+        <button data-c="#1f1f23" style="background:#1f1f23" aria-pressed="true" title="Ink"></button>
+        <button data-c="#f6c544" style="background:#f6c544" title="Yellow"></button>
+        <button data-c="#d8442e" style="background:#d8442e" title="Red"></button>
+        <button data-c="#2eb6c4" style="background:#2eb6c4" title="Cyan"></button>
+        <button data-c="#7c4dff" style="background:#7c4dff" title="Purple"></button>
+        <button data-c="#3fa566" style="background:#3fa566" title="Green (extended)"></button>
+        <button data-c="#7d2336" style="background:#7d2336" title="Maroon (extended)"></button>
+      </div>
+    </div>
+    <div class="featured-card" id="card">
+      <div class="accent" style="--accent:#1f1f23;"></div>
+      <div style="padding:14px 16px;">
+        <div class="eyebrow" style="margin-bottom:4px;">FEATURED PROJECT</div>
+        <div style="font-family:var(--font-heading);font-weight:700;font-size:20px;">Postgres rename CLI</div>
+        <div style="color:var(--fg-muted);font-size:14px;margin-top:2px;">A small Node tool for batch-renaming database columns safely.</div>
+      </div>
+    </div>
+
+    <div class="label" style="margin-top:10px;line-height:1.5;">
+      Featured cards take a <strong>single solid color</strong> on top — pick per-card via inline <code>--card-accent</code>. The 4-color stripe stays reserved for global motifs (nav, footer, dividers) so cards don't compete with it.
+    </div>
+  </div>
+
+<script>
+  const picker = document.getElementById('picker');
+  const accent = document.querySelector('#card .accent');
+  picker.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...picker.children].forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    accent.style.setProperty('--accent', btn.dataset.c);
+  });
+</script>
+</body></html>

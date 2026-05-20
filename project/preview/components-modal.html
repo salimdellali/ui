@@ -1,0 +1,54 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Modal</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 0; background: #f5f5f7; min-height: 320px; position:relative; }
+.scrim { position:absolute; inset:0; background: rgba(10,10,10,.55); display:flex; align-items:center; justify-content:center; padding: 20px; }
+.modal { background:#fff; border-radius: 4px; box-shadow: 0 8px 16px -4px rgba(10,10,10,.12), 0 24px 48px -12px rgba(10,10,10,.14); width: 100%; max-width: 460px; overflow:hidden; }
+.modal-stripe { height: 5px; background: var(--accent, #1f1f23); }
+.modal-body { padding: 18px 20px; }
+.modal h4 { margin: 0 0 6px; font-size: 18px; }
+.modal p { margin: 0 0 14px; color:#4a4a52; font-size: 14px; }
+.modal-foot { display:flex; gap:8px; justify-content:flex-end; }
+.btn { font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 8px 14px 12px; border-radius: 3px; border: 1px solid transparent; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.btn:hover { text-decoration-thickness: 2px; }
+.btn-primary { background: #0a0a0a; color: #fff; }
+.btn-secondary { background: #fff; color: #0a0a0a; border-color: #d8d8de; }
+.swatch-row { position:absolute; top:12px; left:12px; display:flex; gap:6px; flex-wrap:wrap; z-index:2; background: rgba(255,255,255,.9); padding:6px; border-radius:3px; border:1px solid #ececef; }
+.swatch-row button { width:22px; height:22px; border-radius:3px; border:2px solid transparent; cursor:pointer; padding:0; }
+.swatch-row button[aria-pressed="true"] { border-color:#1f1f23; }
+.tip { position:absolute; bottom:10px; left:12px; right:12px; font-size:12px; color:#4a4a52; line-height:1.5; }
+</style></head>
+<body>
+  <div class="swatch-row" id="picker">
+    <button data-c="#1f1f23" style="background:#1f1f23" aria-pressed="true" title="Ink"></button>
+    <button data-c="#f6c544" style="background:#f6c544" title="Yellow"></button>
+    <button data-c="#d8442e" style="background:#d8442e" title="Red"></button>
+    <button data-c="#2eb6c4" style="background:#2eb6c4" title="Cyan"></button>
+    <button data-c="#7c4dff" style="background:#7c4dff" title="Purple"></button>
+    <button data-c="#3fa566" style="background:#3fa566" title="Green"></button>
+    <button data-c="#1ed760" style="background:#1ed760" title="Lime"></button>
+    <button data-c="#7d2336" style="background:#7d2336" title="Maroon"></button>
+  </div>
+  <div class="scrim">
+    <div class="modal">
+      <div class="modal-stripe" id="stripe" style="--accent:#1f1f23;"></div>
+      <div class="modal-body">
+        <h4>Discard changes?</h4>
+        <p>You have unsaved edits to <code>readme.md</code>. This can't be undone.</p>
+        <div class="modal-foot"><button class="btn btn-secondary">Keep editing</button><button class="btn btn-primary">Discard</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="tip">Modal top stripe is a single color. Default is ink. Override per-instance via <code>--modal-accent</code> (e.g. red for destructive flows, cyan for info, purple for branded confirmations).</div>
+<script>
+  const picker = document.getElementById('picker');
+  const stripe = document.getElementById('stripe');
+  picker.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...picker.children].forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    stripe.style.setProperty('--accent', btn.dataset.c);
+  });
+</script>
+</body></html>

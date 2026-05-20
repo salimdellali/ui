@@ -1,0 +1,72 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Wordmark</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .wm {
+    font-family: var(--font-heading, "Inter Tight", "Alliance No.1", sans-serif);
+    font-weight: 800;
+    font-size: 44px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--wm, #1f1f23);
+    transition: color .15s ease;
+  }
+  .wm-sm { font-size: 22px; }
+  .swatch-row { display:flex; gap:6px; flex-wrap:wrap; }
+  .swatch-row button { width:28px; height:28px; border-radius:3px; border:2px solid transparent; cursor:pointer; padding:0; }
+  .swatch-row button[aria-pressed="true"] { border-color: var(--ink); }
+  .stage { padding: 28px 24px; border:1px solid var(--border); border-radius:3px; background:#fff; }
+  .stage.dark { background:#0e0e10; }
+</style>
+</head>
+<body>
+  <div class="col" style="gap:12px;">
+    <div class="label">Wordmark — single color, you choose</div>
+
+    <div class="row" style="gap:10px;align-items:center;">
+      <span style="font-size:12px;color:var(--fg-muted);">Color:</span>
+      <div class="swatch-row" id="picker">
+        <button data-c="#1f1f23" style="background:#1f1f23" aria-pressed="true" title="Ink"></button>
+        <button data-c="#ffffff" style="background:#ffffff;border:1px solid #ddd;" title="White (use on dark)"></button>
+        <button data-c="#f6c544" style="background:#f6c544" title="Yellow"></button>
+        <button data-c="#d8442e" style="background:#d8442e" title="Red"></button>
+        <button data-c="#2eb6c4" style="background:#2eb6c4" title="Cyan"></button>
+        <button data-c="#7c4dff" style="background:#7c4dff" title="Purple"></button>
+        <button data-c="#3fa566" style="background:#3fa566" title="Green"></button>
+        <button data-c="#7d2336" style="background:#7d2336" title="Maroon"></button>
+      </div>
+    </div>
+
+    <div class="stage" id="stageLight">
+      <div class="wm" id="wmLight" style="--wm:#1f1f23;">Salim Dellali</div>
+      <div class="wm wm-sm" style="--wm:inherit;color:inherit;margin-top:14px;font-weight:700;">
+        <span style="color:var(--wm-sm-c, #1f1f23);" id="wmLightSmall">Salim Dellali</span>
+      </div>
+    </div>
+
+    <div class="stage dark" id="stageDark">
+      <div class="wm" id="wmDark" style="--wm:#ffffff;">Salim Dellali</div>
+    </div>
+
+    <div class="label" style="margin-top:6px;line-height:1.5;">
+      Wordmark is set in the heading font (Inter Tight, fallback Alliance No.1), weight 800, tight tracking. Single color only — no multi-color treatment, no gradient. On dark backgrounds default to white; on light, default to ink.
+    </div>
+  </div>
+
+<script>
+  const picker = document.getElementById('picker');
+  const wmLight = document.getElementById('wmLight');
+  const wmLightSmall = document.getElementById('wmLightSmall');
+  const wmDark = document.getElementById('wmDark');
+  picker.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...picker.children].forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    const c = btn.dataset.c;
+    wmLight.style.setProperty('--wm', c);
+    wmLightSmall.style.color = c;
+    // Dark stage: if user picked white, keep it; otherwise still apply
+    wmDark.style.setProperty('--wm', c === '#ffffff' ? '#ffffff' : c);
+  });
+</script>
+</body></html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Buttons</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  /* Asymmetric padding compensates for the underline (3px offset + 1–2px stroke)
+     so the visual gap above the cap-line matches the gap below the underline. */
+  padding: 10px 16px 14px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 120ms;
+}
+/* Underlined label — the signature button treatment */
+.btn .label-text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.btn:hover .label-text {
+  text-decoration-thickness: 2px;
+}
+.btn-primary { background: #0a0a0a; color: #fff; }
+.btn-primary:hover { background: #1f1f23; }
+.btn-secondary { background: #fff; color: #0a0a0a; border-color: #d8d8de; }
+.btn-secondary:hover { border-color: #b8b8c0; }
+.btn-ghost { background: transparent; color: #0a0a0a; }
+.btn-ghost:hover { background: #ececef; }
+.btn-danger { background: #a8311f; color: #fff; }
+.btn-danger:hover { background: #8c2818; }
+.btn-disabled { background: #ececef; color: #8e8e98; cursor: not-allowed; border-color: transparent; }
+.btn-disabled .label-text { text-decoration-color: #b8b8c0; }
+.btn-sm { padding: 6px 10px 9px; font-size: 13px; }
+.btn-lg { padding: 14px 22px 19px; font-size: 16px; }
+</style></head>
+<body>
+  <div class="col" style="gap: 14px;">
+    <div>
+      <div class="label" style="margin-bottom:8px;">Variants — labels are underlined; underline thickens on hover</div>
+      <div class="row">
+        <button class="btn btn-primary"><span class="label-text">Get in touch</span></button>
+        <button class="btn btn-secondary"><span class="label-text">View resume</span></button>
+        <button class="btn btn-ghost"><span class="label-text">Cancel</span></button>
+        <button class="btn btn-danger"><span class="label-text">Delete</span></button>
+        <button class="btn btn-disabled" disabled><span class="label-text">Disabled</span></button>
+      </div>
+    </div>
+    <div>
+      <div class="label" style="margin-bottom:8px;">Sizes</div>
+      <div class="row" style="align-items:center;">
+        <button class="btn btn-primary btn-sm"><span class="label-text">Small</span></button>
+        <button class="btn btn-primary"><span class="label-text">Default</span></button>
+        <button class="btn btn-primary btn-lg"><span class="label-text">Large</span></button>
+      </div>
+    </div>
+    <div class="label" style="line-height:1.5;">
+      Underlined labels are part of the brand — they echo the link styling and reinforce the "engineer-honest, plain text" voice. Offset 3px, 1px thickness at rest, 2px on hover.
+    </div>
+  </div>
+</body></html>

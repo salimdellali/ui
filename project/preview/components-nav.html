@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Nav bar</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 0; background: #fbfbfc; }
+.nav-wrap { background: #fff; border-bottom: 1px solid #ececef; }
+.nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 24px; max-width: 100%; }
+.nav-brand { font-family: var(--font-heading); font-weight:800; font-size:18px; letter-spacing:-0.02em; text-decoration:none; color:#0a0a0a; }
+.nav-links { display:flex; gap:24px; list-style:none; margin:0; padding:0; }
+.nav-links a { color:#2a2a30; text-decoration:none; font-size:14px; font-weight:500; }
+.nav-links a.active { color:#0a0a0a; position:relative; }
+.nav-links a.active::after { content:''; position:absolute; left:0; right:0; bottom:-19px; height:2px; background:#0a0a0a; }
+.nav-cta { font-size:13px; padding:8px 14px; background:#0a0a0a; color:#fff; border-radius:3px; text-decoration:none; }
+</style></head>
+<body>
+  <div class="nav-wrap">
+    <div class="sd-stripe" style="height:3px;background:linear-gradient(90deg,#f6c544,#d8442e,#2eb6c4,#7c4dff);"></div>
+    <nav class="nav">
+      <a class="nav-brand" href="#">Salim Dellali</a>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Work</a></li>
+        <li><a href="#">Writing</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <a class="nav-cta" href="#">Hire me</a>
+    </nav>
+  </div>
+</body></html>

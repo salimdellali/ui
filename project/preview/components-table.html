@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Table</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+table { width:100%; border-collapse: collapse; font-size: 14px; }
+thead th { text-align:left; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #6b6b75; padding: 8px 12px; border-bottom: 1px solid #d8d8de; font-weight: 500; }
+tbody td { padding: 10px 12px; border-bottom: 1px solid #ececef; }
+tbody tr:last-child td { border-bottom: 0; }
+.tag { display:inline-flex; font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; border-radius: 9999px; }
+.tag-success { background:#e6f3ec; color:#1f5d36; }
+.tag-warning { background:#fbf2d9; color:#7a5808; }
+</style></head>
+<body>
+  <table>
+    <thead><tr><th>Project</th><th>Stack</th><th>Status</th><th style="text-align:right;">Stars</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Postgres rename CLI</strong></td><td>Node, TS</td><td><span class="tag tag-success">live</span></td><td style="text-align:right;font-family:var(--font-mono);">128</td></tr>
+      <tr><td><strong>Toolbar.dev</strong></td><td>Rust, Tauri</td><td><span class="tag tag-warning">beta</span></td><td style="text-align:right;font-family:var(--font-mono);">42</td></tr>
+      <tr><td><strong>askmd</strong></td><td>Python</td><td><span class="tag tag-success">live</span></td><td style="text-align:right;font-family:var(--font-mono);">76</td></tr>
+    </tbody>
+  </table>
+</body></html>
