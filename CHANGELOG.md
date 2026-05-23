@@ -1,0 +1,13 @@
+# Changelog
+
+## [0.2.0] — 2026-05-22
+
+### Added
+- Repo scaffold: `package.json`, `tsconfig.json`, `vite.config.ts`, `LICENSE`
+- Dependencies: React 19, TypeScript 6, Vite 8, Storybook 10, Vitest, Playwright, Chromatic
+- `.storybook/` config with Vite builder, a11y, vitest, docs, MCP, Chromatic addons
+- `src/index.ts` entry point, `vitest.shims.d.ts`
+
+### Changed
+- `PLAN.md` updated with exact versions, addons, and steps 1–2 marked complete
+- `.gitignore` excludes Storybook log files

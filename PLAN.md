@@ -45,12 +45,14 @@
 
 | Tool                      | Role                          | Why                                                              |
 | ------------------------- | ----------------------------- | ---------------------------------------------------------------- |
-| **TypeScript**            | Language                      | Typed props = in-editor docs for consumers                       |
-| **React >=18**            | UI framework                  | Peer dependency — supports React 18 and 19                       |
+| **TypeScript 6**          | Language                      | Typed props = in-editor docs for consumers                       |
+| **React 19**              | UI framework                  | Peer dependency — `>=18.0.0` range, currently resolves to 19     |
 | **Pure CSS**              | Styling                       | Zero runtime, no peer deps, no bundle bloat                      |
 | **CSS custom properties** | Design tokens                 | Semantic naming, theme-aware, works with any styling approach    |
-| **Vite (lib mode)**       | Package build                 | Outputs ESM + CJS, handles CSS bundling                          |
-| **Storybook (latest)**    | Dev environment + public site | Component browser, interaction tests, a11y                       |
+| **Vite 8 (lib mode)**     | Package build                 | Outputs ESM + CJS, handles CSS bundling                          |
+| **Storybook 10**          | Dev environment + public site | Component browser, a11y, docs, MCP                               |
+| **Vitest + Playwright**   | Testing                       | Stories run as browser tests via `@storybook/addon-vitest`       |
+| **Chromatic**             | Visual regression / CI        | Catches visual regressions on every push                         |
 | **Vercel**                | Hosting                       | Auto-deploys Storybook on every push                             |
 | **npm (public)**          | Distribution                  | `npm publish` makes it installable anywhere                      |
 
@@ -75,7 +77,7 @@ salimdellali-ui/                   ← repo root
 │   └── index.ts                   ← package entry point (also imports tokens.css)
 ├── .storybook/
 │   ├── main.ts
-│   └── preview.ts
+│   └── preview.tsx
 ├── dist/                          ← built output (gitignored, published to npm)
 ├── package.json
 ├── tsconfig.json
@@ -163,8 +165,10 @@ export const ClickTest: Story = {
 Storybook addons in use:
 
 - `@storybook/addon-a11y` — accessibility audit on every story (advisory — fix mechanical issues, use judgment on visual ones)
-- `@storybook/addon-interactions` — interaction tests
+- `@storybook/addon-vitest` — stories run as Vitest + Playwright browser tests (replaces `addon-interactions` from Storybook 8)
 - `@storybook/addon-docs` — auto-generated docs from TypeScript types
+- `@chromatic-com/storybook` — visual regression testing and CI
+- `@storybook/addon-mcp` — lets AI assistants browse Storybook via MCP protocol
 
 ---
 
@@ -201,8 +205,8 @@ Publishing is manual. Automation via GitHub Actions or a Claude skill may be add
 
 ## Build Order
 
-- [ ] 1. Initialize repo: `package.json`, `tsconfig.json`, `vite.config.ts`
-- [ ] 2. Install dependencies: React, TypeScript, Vite, Storybook
+- [x] 1. Initialize repo: `package.json`, `tsconfig.json`, `vite.config.ts`, `LICENSE`
+- [x] 2. Install dependencies via CLI (`tsc --init`, `npx storybook@latest init`) — React 19, TypeScript 6, Vite 8, Storybook 10, Vitest, Playwright
 - [ ] 3. Migrate `tokens.css` → `src/tokens/tokens.css`
 - [ ] 4. Port **Theme**: `ThemeProvider`, `ThemeToggle` — verify dark/light toggle works in Storybook
 - [ ] 5. Port **Primitives** one by one — verify each in Storybook in both themes before moving to the next
