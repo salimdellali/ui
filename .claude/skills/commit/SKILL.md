@@ -5,6 +5,8 @@ description: Interactive commit flow — bumps semver, updates CHANGELOG, create
 
 You are running an interactive commit workflow for an npm package. Follow these steps in order, pausing for user confirmation at each one.
 
+**When to use this skill:** Only when `src/` has changed and the published package will be different for consumers. For changes to tooling, docs, `.claude/`, `PLAN.md`, or other non-src files, skip this skill and do a plain `git commit` instead — no version bump needed.
+
 ## Step 1 — Analyze changes and suggest a semver bump
 
 Run `git diff HEAD` and `git status` to understand what changed.
@@ -17,7 +19,7 @@ Based on the diff, determine the appropriate semver bump:
 Tell the user:
 - What changed (1–3 bullet points, terse)
 - Which bump you recommend and why
-- Ask: "Bump patch / minor / major — or skip?"
+- Ask: "Bump patch / minor / major / skip? [patch/minor/major/skip]"
 
 Wait for confirmation before proceeding.
 
@@ -50,9 +52,9 @@ Read the current `CHANGELOG.md`. Suggest a new entry at the top of the `## [Unre
 - ...
 ```
 
-Only include sections that are relevant. Keep entries terse. Show the suggested entry to the user and ask: "Add this to CHANGELOG? Edit or confirm."
+Only include sections that are relevant. Keep entries terse. Show the suggested entry to the user and ask: "Add this to CHANGELOG? [y/n/edit]"
 
-Wait for confirmation (or edited version) before writing.
+Accept `y` or `yes` to confirm as-is. Accept `n` or `no` to skip. Accept `edit` or any modified text to use the edited version. Wait for confirmation before writing.
 
 ## Step 4 — Write the CHANGELOG entry
 
@@ -76,18 +78,26 @@ Suggest a concise conventional commit message that covers:
 
 Example: `chore: bump to v0.2.0 — add Button component`
 
-Ask: "Use this commit message? Edit or confirm."
+Ask: "Use this commit message? [y/n/edit]"
 
-Wait for confirmation.
+Accept `y` or `yes` to confirm as-is. Accept `n` or `no` to abort. Accept `edit` or any modified text to use the edited version. Wait for confirmation.
 
 ## Step 7 — Stage and commit
 
-Stage the changed files:
+Run `git status` to show the user all modified and untracked files. Ask: "Stage all of these? [y/n]"
+
+Accept `y` or `yes` to stage everything. Accept `n` or `no` to abort.
+
+If confirmed, stage all changes:
 ```
-git add package.json CHANGELOG.md
+git add -A
 ```
 
-Then commit with the confirmed message:
+Run `git status` again and show the full list of staged files. Ask: "Commit these files? [y/n]"
+
+Accept `y` or `yes` to proceed. Accept `n` or `no` to abort. Wait for confirmation before proceeding.
+
+Once confirmed, commit with the confirmed message:
 ```
 git commit -m "..."
 ```

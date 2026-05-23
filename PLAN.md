@@ -215,6 +215,10 @@ Publishing is manual. Automation via GitHub Actions or a Claude skill may be add
 - [ ] 8. Configure `src/index.ts` (exports + token CSS import)
 - [ ] 9. Configure Vite library build, verify `dist/` output
 - [ ] 10. Deploy Storybook to Vercel
-- [ ] 11. Publish `@salimdellali/ui@0.1.0` to npm
-- [ ] 12. Test in a fresh React project end-to-end
-- [ ] 13. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
+- [ ] 11. Pre-publish checklist (do before step 12):
+  - Add `homepage`, `bugs`, `engines` fields to `package.json`
+  - Rewrite `README.md` for consumers (install, usage, peer deps, Next.js caveat, Storybook link)
+  - Add GitHub Actions CI workflow (tsc + Vitest + Chromatic on every push)
+- [ ] 12. Publish `@salimdellali/ui@1.0.0` to npm
+- [ ] 13. Test in a fresh React project end-to-end
+- [ ] 14. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
