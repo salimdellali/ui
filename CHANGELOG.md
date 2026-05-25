@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0] — 2026-05-23
+
+### Added
+- `src/tokens/tokens.css` — design tokens: self-hosted Inter Tight, Inter, and JetBrains Mono fonts via `@font-face`, CSS custom properties for colors, typography, spacing, radii, shadows, and motion, dark theme overrides via `[data-theme="dark"]`
+- `src/index.ts` imports `tokens.css` so tokens load automatically for consumers
+
 ## [0.2.0] — 2026-05-22
 
 ### Added
