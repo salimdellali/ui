@@ -53,6 +53,7 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.15",
     "@chromatic-com/storybook": "^5.2.1",
     "@storybook/addon-a11y": "^10.4.0",
     "@storybook/addon-docs": "^10.4.0",

@@ -7,7 +7,7 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "ESNext",           // changed from nodenext — Vite handles bundling
+    "module": "ESNext", // changed from nodenext — Vite handles bundling
     "moduleResolution": "bundler", // matches Vite's resolver
     "target": "esnext",
     // "types": [],               // removed — let @types/react be auto-included
@@ -20,7 +20,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "noEmit": true,               // Vite compiles, vite-plugin-dts handles .d.ts
+    "noEmit": true, // Vite compiles, vite-plugin-dts handles .d.ts
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -41,7 +41,7 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src", ".storybook"],
   "exclude": ["dist", "node_modules"]

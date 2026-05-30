@@ -15,5 +15,6 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
-      - run: npx tsc --noEmit
+      - run: npm ci # ci = clean install
+      - run: npx tsc --noEmit # type checking
+      - run: npx biome ci # ci = continuous integration, format + lint but read-only, fails on violations
