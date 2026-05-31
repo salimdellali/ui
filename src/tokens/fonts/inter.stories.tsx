@@ -212,6 +212,11 @@ export const Specimen: StoryObj = {
         time dilation, gravitational lensing, and the irreversible passage of years.
       </p>
       <Note label="Strong:     fontSize: --fs-base     fontWeight: 700 within body at fontWeight: 400     lineHeight: --lh-loose     maxWidth: --measure     textAlign: justify" />
+
+      <p style={{ fontSize: cssVar("--fs-lg"), fontWeight: 400, lineHeight: cssVar("--lh-normal"), margin: 0 }}>
+        Áá Àà Ââ Éé Èè Êê Ëë Îî Ïï Ôô Ùù Ûû Üü Ÿÿ Æœ Çç
+      </p>
+      <Note label="French diacritics:     fontSize: --fs-lg     fontWeight: 400     lineHeight: --lh-normal" />
     </div>
   ),
 }

@@ -195,7 +195,7 @@ export const Specimen: StoryObj = {
       <Note label="Lowercase + numerals" />
 
       <p style={{ fontSize: cssVar("--fs-xl"), fontWeight: 400, margin: 0 }}>
-        Àà Ââ Éé Èè Êê Ëë Îî Ïï Ôô Ùù Ûû Üü Ÿÿ Æœ Çç
+        Áá Àà Ââ Éé Èè Êê Ëë Îî Ïï Ôô Ùù Ûû Üü Ÿÿ Æœ Çç
       </p>
       <Note label="French diacritics" />
     </div>
