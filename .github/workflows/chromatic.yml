@@ -1,0 +1,24 @@
+name: Chromatic
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5 # clones the repo into the runner, without this the job starts with an empty filesystem
+        with:
+          fetch-depth: 0 # full history for accurate baselines
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitOnceUploaded: true # exit as soon as snapshots are uploaded instead of waiting for Chromatic to finish comparing — Chromatic posts the pass/fail result to GitHub directly, so the GHA job waiting around is redundant and wastes CI minutes
