@@ -21,3 +21,4 @@ storybook-static/
 .claude/handoff.md
 
 *storybook.log
+.vercel
