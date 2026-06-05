@@ -1,8 +1,24 @@
 /// <reference path="./global.d.ts" />
-import type { Preview } from "@storybook/react-vite"
+import type { Decorator, Preview } from "@storybook/react-vite"
 import "../src/tokens/tokens.css"
 
+const withTheme: Decorator = (Story, context) => {
+  const theme = (context.globals.theme as string) ?? "dark"
+  document.documentElement.setAttribute("data-theme", theme)
+  document.body.style.background = "var(--bg)"
+  localStorage.setItem("sd-theme", theme)
+  return <Story />
+}
+
 const preview: Preview = {
+  globalTypes: {
+    theme: {
+      name: "Theme",
+      description: "Global theme for all stories",
+      defaultValue: "dark",
+    },
+  },
+  decorators: [withTheme],
   parameters: {
     controls: {
       matchers: {
