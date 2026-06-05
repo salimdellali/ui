@@ -69,26 +69,40 @@
   --sd-paper: #fbfbfc;
   --sd-white: #ffffff;
 
-  /* Brand Quartet */
+  /* Brand Quartet — light primitives + dark variants */
   --sd-yellow: #f6c544;
+  --sd-yellow-dark: #fdd060;
   --sd-yellow-deep: #d49d12;
+  --sd-yellow-deep-dark: #f0b820;
   --sd-red: #d8442e;
+  --sd-red-dark: #f05540;
   --sd-red-deep: #a8311f;
+  --sd-red-deep-dark: #d44530;
   --sd-cyan: #2eb6c4;
+  --sd-cyan-dark: #42ccd8;
   --sd-cyan-deep: #1a8997;
+  --sd-cyan-deep-dark: #2eb6c4;
   --sd-purple: #7c4dff;
+  --sd-purple-dark: #9b72ff;
   --sd-purple-deep: #5a30c7;
+  --sd-purple-deep-dark: #7c4dff;
 
-  /* Extended brand */
+  /* Extended brand — light primitives + dark variants */
   --sd-green: #3fa566;
+  --sd-green-dark: #4dba78;
   --sd-green-deep: #2a7d49;
+  --sd-green-deep-dark: #3fa566;
   --sd-lime: #b8d62a;
+  --sd-lime-dark: #c8e640;
   --sd-lime-deep: #8aa118;
+  --sd-lime-deep-dark: #a0be20;
   --sd-maroon: #7d2336;
+  --sd-maroon-dark: #a83048;
   --sd-maroon-deep: #5a1626;
+  --sd-maroon-deep-dark: #7d2336;
 
   /* Stripe gradients */
-  --sd-stripe: linear-gradient(
+  --sd-stripe-hard: linear-gradient(
     90deg,
     var(--sd-yellow) 0%,
     var(--sd-yellow) 25%,
@@ -99,7 +113,7 @@
     var(--sd-purple) 75%,
     var(--sd-purple) 100%
   );
-  --sd-stripe-soft: linear-gradient(90deg, var(--sd-yellow), var(--sd-red), var(--sd-cyan), var(--sd-purple));
+  --sd-stripe-gradient: linear-gradient(90deg, var(--sd-yellow), var(--sd-red), var(--sd-cyan), var(--sd-purple));
 
   /* ---------- SEMANTIC TOKENS — LIGHT ---------- */
   /* --bg = background */
@@ -136,6 +150,22 @@
   --link-hover: var(--sd-red-deep);
   --selection-bg: #ffe9a3;
   --selection-fg: var(--sd-ink);
+
+  /* ---------- BRAND COLOR ALIASES (theme-aware) ---------- */
+  --color-yellow: var(--sd-yellow);
+  --color-yellow-deep: var(--sd-yellow-deep);
+  --color-red: var(--sd-red);
+  --color-red-deep: var(--sd-red-deep);
+  --color-cyan: var(--sd-cyan);
+  --color-cyan-deep: var(--sd-cyan-deep);
+  --color-purple: var(--sd-purple);
+  --color-purple-deep: var(--sd-purple-deep);
+  --color-green: var(--sd-green);
+  --color-green-deep: var(--sd-green-deep);
+  --color-lime: var(--sd-lime);
+  --color-lime-deep: var(--sd-lime-deep);
+  --color-maroon: var(--sd-maroon);
+  --color-maroon-deep: var(--sd-maroon-deep);
 
   /* ---------- TYPE ---------- */
   --font-heading: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -266,4 +296,20 @@
   --shadow-lg: 0 4px 8px -2px rgba(0, 0, 0, 0.55), 0 12px 24px -6px rgba(0, 0, 0, 0.55);
   --shadow-xl: 0 8px 16px -4px rgba(0, 0, 0, 0.6), 0 24px 48px -12px rgba(0, 0, 0, 0.7);
   --shadow-focus: 0 0 0 3px rgba(245, 245, 247, 0.25);
+
+  /* ---------- BRAND COLOR ALIASES — DARK ---------- */
+  --color-yellow: var(--sd-yellow-dark);
+  --color-yellow-deep: var(--sd-yellow-deep-dark);
+  --color-red: var(--sd-red-dark);
+  --color-red-deep: var(--sd-red-deep-dark);
+  --color-cyan: var(--sd-cyan-dark);
+  --color-cyan-deep: var(--sd-cyan-deep-dark);
+  --color-purple: var(--sd-purple-dark);
+  --color-purple-deep: var(--sd-purple-deep-dark);
+  --color-green: var(--sd-green-dark);
+  --color-green-deep: var(--sd-green-deep-dark);
+  --color-lime: var(--sd-lime-dark);
+  --color-lime-deep: var(--sd-lime-deep-dark);
+  --color-maroon: var(--sd-maroon-dark);
+  --color-maroon-deep: var(--sd-maroon-deep-dark);
 }
