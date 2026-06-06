@@ -245,6 +245,11 @@
   --bw-3: 3px;
 }
 
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
 [data-theme="dark"] {
   /* --bg = background */
   --bg: var(--sd-graphite);

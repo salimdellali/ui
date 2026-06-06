@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { Entry, SectionLabel } from "../story-utils"
 import { type CSSToken, cssVar } from "../tokens"
 
 const meta: Meta = {
-  title: "Tokens/Colors/Palette",
+  title: "Tokens/Colors",
 }
 export default meta
 
@@ -26,26 +27,8 @@ function resolveTokenHex(token: string): string {
 
 // ---- Shared components ----
 
-const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p
-    style={{
-      fontFamily: cssVar("--font-mono"),
-      fontSize: cssVar("--fs-md"),
-      color: cssVar("--fg-subtle"),
-      textTransform: "uppercase",
-      letterSpacing: cssVar("--tracking-caps"),
-      fontWeight: 500,
-      margin: `0 0 ${cssVar("--sp-4")}`,
-    }}
-  >
-    {children}
-  </p>
-)
-
 const SwatchGrid = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: "flex", flexWrap: "wrap", gap: cssVar("--sp-4"), marginBottom: cssVar("--sp-7") }}>
-    {children}
-  </div>
+  <div style={{ display: "flex", flexWrap: "wrap", gap: cssVar("--sp-4") }}>{children}</div>
 )
 
 const Swatch = ({ token }: { token: string }) => (
@@ -115,26 +98,32 @@ export const Neutrals: StoryObj = {
   name: "Neutrals",
   render: () => (
     <div style={{ padding: cssVar("--sp-6") }}>
-      <SectionLabel>Darks</SectionLabel>
-      <SwatchGrid>
-        {NEUTRALS_DARK.map((token) => (
-          <Swatch key={token} token={token} />
-        ))}
-      </SwatchGrid>
+      <Entry>
+        <SectionLabel>Darks</SectionLabel>
+        <SwatchGrid>
+          {NEUTRALS_DARK.map((token) => (
+            <Swatch key={token} token={token} />
+          ))}
+        </SwatchGrid>
+      </Entry>
 
-      <SectionLabel>Slates</SectionLabel>
-      <SwatchGrid>
-        {NEUTRALS_SLATES.map((token) => (
-          <Swatch key={token} token={token} />
-        ))}
-      </SwatchGrid>
+      <Entry>
+        <SectionLabel>Slates</SectionLabel>
+        <SwatchGrid>
+          {NEUTRALS_SLATES.map((token) => (
+            <Swatch key={token} token={token} />
+          ))}
+        </SwatchGrid>
+      </Entry>
 
-      <SectionLabel>Lights</SectionLabel>
-      <SwatchGrid>
-        {NEUTRALS_LIGHT.map((token) => (
-          <Swatch key={token} token={token} />
-        ))}
-      </SwatchGrid>
+      <Entry>
+        <SectionLabel>Lights</SectionLabel>
+        <SwatchGrid>
+          {NEUTRALS_LIGHT.map((token) => (
+            <Swatch key={token} token={token} />
+          ))}
+        </SwatchGrid>
+      </Entry>
     </div>
   ),
 }
@@ -144,35 +133,29 @@ export const Brand: StoryObj = {
   render: () => (
     <div style={{ padding: cssVar("--sp-6") }}>
       {BRAND_FAMILIES.map(({ label, tokens }) => (
-        <div key={label}>
+        <Entry key={label}>
           <SectionLabel>{label}</SectionLabel>
           <SwatchGrid>
             {tokens.map((token) => (
               <Swatch key={token} token={token} />
             ))}
           </SwatchGrid>
-        </div>
+        </Entry>
       ))}
     </div>
   ),
 }
 
 const StripeRow = ({ title, token, height }: { title: string; token: CSSToken; height: number }) => (
-  <div style={{ marginBottom: cssVar("--sp-6") }}>
+  <div style={{ display: "flex", flexDirection: "column", gap: cssVar("--sp-3"), marginBottom: cssVar("--sp-8") }}>
     <SectionLabel>{title}</SectionLabel>
-    <div
-      style={{
-        height,
-        background: `var(${token})`,
-        marginBottom: cssVar("--sp-2"),
-      }}
-    />
+    <div style={{ height, background: `var(${token})` }} />
     <p
       style={{
         fontFamily: cssVar("--font-mono"),
         fontSize: cssVar("--fs-xs"),
         color: cssVar("--fg-subtle"),
-        margin: "6px 0 0",
+        margin: 0,
         lineHeight: 1.4,
       }}
     >
@@ -201,14 +184,14 @@ export const Semantic: StoryObj = {
         Toggle the theme to see every swatch reaction.
       </h1>
       {SEMANTIC_GROUPS.map(({ label, tokens }) => (
-        <div key={label}>
+        <Entry key={label}>
           <SectionLabel>{label}</SectionLabel>
           <SwatchGrid>
             {tokens.map((token) => (
               <Swatch key={token} token={token} />
             ))}
           </SwatchGrid>
-        </div>
+        </Entry>
       ))}
     </div>
   ),
