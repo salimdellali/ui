@@ -1,25 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { Entry, Note, SectionLabel } from "../story-utils"
 import { type CSSToken, cssVar } from "../tokens"
 
 const meta: Meta = {
   title: "Tokens/Fonts/JetBrains Mono (Code)",
 }
 export default meta
-
-const Note = ({ label }: { label: string }) => (
-  <p
-    style={{
-      fontFamily: cssVar("--font-mono"),
-      fontSize: cssVar("--fs-xs"),
-      color: cssVar("--fg-subtle"),
-      margin: "0 0 1.5rem",
-      fontWeight: 400,
-      whiteSpace: "pre-wrap",
-    }}
-  >
-    {label}
-  </p>
-)
 
 const SAMPLE = "const velocity = 7.9e3 // orbital velocity in m/s"
 
@@ -30,12 +16,12 @@ export const FontSizes: StoryObj = {
   render: () => (
     <div style={{ padding: cssVar("--sp-6"), fontFamily: cssVar("--font-mono"), color: cssVar("--fg") }}>
       {(["--fs-lg", "--fs-md", "--fs-base", "--fs-sm", "--fs-xs"] satisfies CSSToken[]).map((token) => (
-        <div key={token}>
+        <Entry key={token}>
           <p style={{ fontSize: cssVar(token), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
             {SAMPLE}
           </p>
           <Note label={`fontSize: ${token}`} />
-        </div>
+        </Entry>
       ))}
     </div>
   ),
@@ -113,30 +99,49 @@ export const Ligatures: StoryObj = {
   render: () => (
     <div style={{ padding: cssVar("--sp-6"), fontFamily: cssVar("--font-mono"), color: cssVar("--fg") }}>
       {LIGATURE_GROUPS.map(({ title, items }) => (
-        <div key={title} style={{ marginBottom: cssVar("--sp-6") }}>
-          <p style={{ fontSize: cssVar("--fs-xs"), color: cssVar("--fg-subtle"), fontWeight: 400, margin: "0 0 1rem" }}>
-            {title}
-          </p>
-          {items.map(({ raw, rendered, label }) => (
-            <div
-              key={rendered}
-              style={{ display: "flex", alignItems: "baseline", gap: cssVar("--sp-5"), marginBottom: cssVar("--sp-3") }}
-            >
-              <span
-                style={{ fontSize: cssVar("--fs-md"), fontWeight: 400, color: cssVar("--fg-subtle"), minWidth: "5rem" }}
+        <Entry key={title}>
+          <SectionLabel>{title}</SectionLabel>
+          <div>
+            {items.map(({ raw, rendered, label }) => (
+              <div
+                key={rendered}
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: cssVar("--sp-5"),
+                  marginBottom: cssVar("--sp-3"),
+                }}
               >
-                {raw}
-              </span>
-              <span style={{ fontSize: cssVar("--fs-md"), color: cssVar("--fg-subtle") }}>renders</span>
-              <span style={{ fontSize: cssVar("--fs-md"), fontWeight: 400, minWidth: "3rem" }}>{rendered}</span>
-              <span style={{ fontSize: cssVar("--fs-md"), color: cssVar("--fg-subtle") }}>{label}</span>
-            </div>
-          ))}
-        </div>
+                <span
+                  style={{
+                    fontSize: cssVar("--fs-base"),
+                    fontWeight: 400,
+                    color: cssVar("--fg-subtle"),
+                    minWidth: "5rem",
+                  }}
+                >
+                  {raw}
+                </span>
+                <span style={{ fontSize: cssVar("--fs-base"), color: cssVar("--fg-subtle") }}>renders</span>
+                <span style={{ fontSize: cssVar("--fs-base"), fontWeight: 400, minWidth: "3rem" }}>{rendered}</span>
+                <span style={{ fontSize: cssVar("--fs-base"), color: cssVar("--fg-subtle") }}>{label}</span>
+              </div>
+            ))}
+          </div>
+        </Entry>
       ))}
     </div>
   ),
 }
+
+const DISAMBIGUATION_PAIRS = [
+  { label: "Zero VS uppercase letter O", chars: "0O" },
+  { label: "One VS lowercase l VS uppercase I VS pipe", chars: "1lI|" },
+  { label: "Two VS uppercase letter Z", chars: "2Z" },
+  { label: "Five VS uppercase letter S", chars: "5S" },
+  { label: "Seven VS uppercase letter T", chars: "7T" },
+  { label: "Eight VS uppercase letter B", chars: "8B" },
+]
 
 // ---- Disambiguation ----
 
@@ -144,26 +149,28 @@ export const Disambiguation: StoryObj = {
   name: "Disambiguation",
   render: () => (
     <div style={{ padding: cssVar("--sp-6"), fontFamily: cssVar("--font-mono"), color: cssVar("--fg") }}>
-      <p style={{ fontSize: cssVar("--fs-2xl"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>0O</p>
-      <Note label="Zero VS uppercase letter O" />
-
-      <p style={{ fontSize: cssVar("--fs-2xl"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>1lI|</p>
-      <Note label="One VS lowercase l VS uppercase I VS pipe" />
-
-      <p style={{ fontSize: cssVar("--fs-2xl"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>2Z</p>
-      <Note label="Two VS uppercase letter Z" />
-
-      <p style={{ fontSize: cssVar("--fs-2xl"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>5S</p>
-      <Note label="Five VS uppercase letter S" />
-
-      <p style={{ fontSize: cssVar("--fs-2xl"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>7T</p>
-      <Note label="Seven VS uppercase letter T" />
-
-      <p style={{ fontSize: cssVar("--fs-2xl"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>8B</p>
-      <Note label="Eight VS uppercase letter B" />
+      {DISAMBIGUATION_PAIRS.map(({ label, chars }) => (
+        <Entry key={label}>
+          <SectionLabel>{label}</SectionLabel>
+          <p style={{ fontSize: cssVar("--fs-base"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
+            {chars}
+          </p>
+        </Entry>
+      ))}
     </div>
   ),
 }
+
+const CHARACTER_GROUPS = [
+  { label: "Uppercase", chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ" },
+  { label: "Lowercase", chars: "abcdefghijklmnopqrstuvwxyz" },
+  { label: "Numerals", chars: "0123456789" },
+  {
+    label: "ASCII punctuation and symbols",
+    chars: "! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~",
+  },
+  { label: "French diacritics", chars: "Áá Àà Ââ Éé Èè Êê Ëë Îî Ïï Ôô Ùù Ûû Üü Ÿÿ Æœ Çç" },
+]
 
 // ---- Character Set ----
 
@@ -171,85 +178,14 @@ export const CharacterSet: StoryObj = {
   name: "Character Set",
   render: () => (
     <div style={{ padding: cssVar("--sp-6"), fontFamily: cssVar("--font-mono"), color: cssVar("--fg") }}>
-      <p style={{ fontSize: cssVar("--fs-lg"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
-        ABCDEFGHIJKLMNOPQRSTUVWXYZ
-      </p>
-      <Note label="Uppercase" />
-
-      <p style={{ fontSize: cssVar("--fs-lg"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
-        abcdefghijklmnopqrstuvwxyz
-      </p>
-      <Note label="Lowercase" />
-
-      <p style={{ fontSize: cssVar("--fs-lg"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
-        0123456789
-      </p>
-      <Note label="numerals" />
-
-      <p style={{ fontSize: cssVar("--fs-lg"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
-        {"! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~"}
-      </p>
-      <Note label="ASCII punctuation and symbols" />
-
-      <p style={{ fontSize: cssVar("--fs-lg"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
-        Áá Àà Ââ Éé Èè Êê Ëë Îî Ïï Ôô Ùù Ûû Üü Ÿÿ Æœ Çç
-      </p>
-      <Note label="French diacritics" />
-    </div>
-  ),
-}
-
-// ---- Specimen ----
-
-export const Specimen: StoryObj = {
-  name: "Specimen",
-  render: () => (
-    <div style={{ padding: cssVar("--sp-6"), fontFamily: cssVar("--font-mono"), color: cssVar("--fg") }}>
-      <Note label="JetBrains Mono: recommended code combinations" />
-
-      <pre
-        style={{
-          fontFamily: cssVar("--font-mono"),
-          fontSize: cssVar("--fs-base"),
-          fontWeight: 400,
-          lineHeight: cssVar("--lh-snug"),
-          margin: 0,
-        }}
-      >
-        {
-          'function countdown(n: number): void {\n  if (n <= 0) {\n    console.log("launch");\n    return;\n  }\n  console.log(n);\n  countdown(n - 1);\n}'
-        }
-      </pre>
-      <Note label="Editor:     fontSize: --fs-base     fontWeight: 400     lineHeight: --lh-snug" />
-
-      <pre
-        style={{
-          fontFamily: cssVar("--font-mono"),
-          fontSize: cssVar("--fs-sm"),
-          fontWeight: 400,
-          lineHeight: cssVar("--lh-snug"),
-          margin: 0,
-        }}
-      >
-        {'$ npm install @salimdellali/ui\nadded 1 package in 0.42s\n$ git commit -m "feat: launch sequence initiated"'}
-      </pre>
-      <Note label="Terminal:     fontSize: --fs-sm     fontWeight: 400     lineHeight: --lh-snug" />
-
-      <pre
-        style={{
-          fontFamily: cssVar("--font-mono"),
-          fontSize: cssVar("--fs-base"),
-          fontWeight: 400,
-          fontStyle: "italic",
-          lineHeight: cssVar("--lh-snug"),
-          margin: 0,
-        }}
-      >
-        {
-          "// calculate orbital period using Kepler's third law\n/* TODO: account for atmospheric drag\n   negligible above 200 km */"
-        }
-      </pre>
-      <Note label="Comment:     fontSize: --fs-base     fontWeight: 400     fontStyle: italic     lineHeight: --lh-snug" />
+      {CHARACTER_GROUPS.map(({ label, chars }) => (
+        <Entry key={label}>
+          <SectionLabel>{label}</SectionLabel>
+          <p style={{ fontSize: cssVar("--fs-base"), fontWeight: 400, lineHeight: cssVar("--lh-snug"), margin: 0 }}>
+            {chars}
+          </p>
+        </Entry>
+      ))}
     </div>
   ),
 }
