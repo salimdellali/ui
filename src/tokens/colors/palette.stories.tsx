@@ -105,10 +105,6 @@ const SEMANTIC_GROUPS: Array<{ label: string; tokens: CSSToken[] }> = [
   { label: "Foreground", tokens: ["--fg", "--fg-muted", "--fg-subtle", "--fg-disabled", "--fg-on-accent"] },
   { label: "Border", tokens: ["--border", "--border-strong", "--border-focus"] },
   { label: "Accent", tokens: ["--accent", "--accent-hover", "--accent-press"] },
-  { label: "Success", tokens: ["--success", "--success-bg"] },
-  { label: "Warning", tokens: ["--warning", "--warning-bg"] },
-  { label: "Danger", tokens: ["--danger", "--danger-bg"] },
-  { label: "Info", tokens: ["--info", "--info-bg"] },
   { label: "Link", tokens: ["--link", "--link-hover"] },
   { label: "Selection", tokens: ["--selection-bg", "--selection-fg"] },
 ]
