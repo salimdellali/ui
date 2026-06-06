@@ -20,22 +20,36 @@
 
 > `project/assets/` (SVGs: wordmark, wordmark-dark, avatar-mark) — **out of scope**. Personal brand assets with no reuse value for consumers. Will be revisited when revamping the personal site.
 
-### Components to port (migration order: Theme → Primitives → Compounds → Wrappers)
+### Component hierarchy (Storybook sidebar + build order)
 
-**Theme**
-- `ThemeProvider`, `ThemeToggle`
-
-**Primitives**
-- Brand: `Stripe`, `Eyebrow`
-- Interactive: `Button`
-- Form: `Field`, `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
-- Display: `Tag`, `BadgeDot`, `Kbd`, `Code`, `CodeBlock`
-
-**Compounds** (composed from primitives)
-- `Banner`, `Card`, `FeaturedCard`, `Modal`, `Tabs`, `Accordion`, `Table`, `Nav`, `Hero`, `Footer`
-
-**Wrappers** (built last — stories use the full component library as fill content)
-- `Container`, `Section`, `Stack`, `Row`, `EditorialGrid`
+```
+Components/
+  Atoms/                       ← single-element, no composition
+    Typography/                ← semantic HTML tags, token-wired, zero props needed for basic use
+      H1, H2, H3, H4
+      P, Lead, Blockquote
+      InlineCode
+    Interactive/               ← non-form interactive elements
+      Button
+      Tag, BadgeDot, Kbd
+    Form/                      ← form controls
+      Input, Select, Textarea
+      Checkbox, Radio
+  Molecules/                   ← composed from atoms
+    Field                      ← label + form atom + help text / error
+    Banner                     ← icon + text + optional dismiss
+  Organisms/                   ← complex, self-contained
+    Card, FeaturedCard
+    Modal, Tabs, Accordion, Table
+    CodeBlock
+  Wrappers/                    ← layout; atoms/molecules/organisms fill 100% width inside these
+    Stack, Row, Container, Section, EditorialGrid
+  Theme/                       ← brand + theme plumbing
+    Stripe, Eyebrow
+    ThemeProvider, ThemeToggle
+  Page/                        ← compose everything above
+    Header, Nav, Hero, Footer
+```
 
 > Components are fully closed — no `className` prop exposed. Every component spreads `...rest` onto its root element to support `onClick`, `aria-*`, `data-testid`, and other HTML attributes without needing to prop-type each one explicitly.
 
@@ -60,21 +74,29 @@
 
 ## Repository Structure
 
+Each component lives in its own folder: `ComponentName.tsx`, `ComponentName.css`, `ComponentName.stories.tsx`, `index.ts`.
+
 ```
-salimdellali-ui/                   ← repo root
+salimdellali-ui/
 ├── src/
 │   ├── components/
-│   │   ├── Button/
-│   │   │   ├── Button.tsx         ← component
-│   │   │   ├── Button.css         ← scoped styles
-│   │   │   ├── Button.stories.tsx ← Storybook stories + tests
-│   │   │   └── index.ts           ← re-export
-│   │   ├── Card/
-│   │   ├── Nav/
-│   │   └── ... (one folder per component)
+│   │   ├── atoms/
+│   │   │   ├── typography/        ← semantic HTML tags, token-wired, zero props for basic use (H1, P, Lead...)
+│   │   │   ├── interactive/       ← single non-form elements (Button, Tag, Kbd...)
+│   │   │   └── form/              ← single form controls (Input, Select, Checkbox...)
+│   │   ├── molecules/             ← composed from atoms (Field, Banner...)
+│   │   ├── organisms/             ← complex self-contained sections (Card, Modal, Tabs...)
+│   │   ├── wrappers/              ← layout containers (Stack, Row, EditorialGrid...)
+│   │   ├── theme/                 ← brand + theme plumbing (Stripe, ThemeProvider...)
+│   │   └── page/                  ← full page sections (Header, Hero, Footer...)
 │   ├── tokens/
-│   │   └── tokens.css             ← migrated from colors_and_type.css
-│   └── index.ts                   ← package entry point (also imports tokens.css)
+│   │   ├── tokens.css             ← all CSS custom properties (primitives + semantic, light + dark)
+│   │   ├── tokens.ts              ← CSSToken union type + cssVar() helper
+│   │   ├── story-utils.tsx        ← shared Storybook layout components
+│   │   ├── colors/                ← color palette stories
+│   │   ├── fonts/                 ← Inter, Inter Tight, JetBrains Mono stories
+│   │   └── typography/            ← Headings, Body, Code stories
+│   └── index.ts                   ← package entry point (exports + tokens.css import)
 ├── .storybook/
 │   ├── main.ts
 │   └── preview.tsx
@@ -94,16 +116,26 @@ npm install @salimdellali/ui
 ```
 
 ```tsx
-import { Button, Card, Nav } from "@salimdellali/ui"
+import { H1, P, Button, Card } from "@salimdellali/ui"
 // tokens.css loads automatically — no second import needed
 
-function MyPage() {
+// Typography atoms work with zero props
+function QuickPage() {
+  return (
+    <>
+      <H1>Hello world</H1>
+      <P>This is a paragraph with default body styles.</P>
+    </>
+  )
+}
+
+// Organisms compose atoms together
+function FeaturePage() {
   return (
     <Card>
-      <h2>Hello</h2>
-      <Button variant="primary" size="lg" onClick={handleClick}>
-        Click me
-      </Button>
+      <H1>Card title</H1>
+      <P>Card body text.</P>
+      <Button variant="primary" onClick={handleClick}>Get started</Button>
     </Card>
   )
 }
@@ -207,18 +239,22 @@ Publishing is manual. Automation via GitHub Actions or a Claude skill may be add
 
 - [x] 1. Initialize repo: `package.json`, `tsconfig.json`, `vite.config.ts`, `LICENSE`
 - [x] 2. Install dependencies via CLI (`tsc --init`, `npx storybook@latest init`) — React 19, TypeScript 6, Vite 8, Storybook 10, Vitest, Playwright
-- [ ] 3. Migrate `tokens.css` → `src/tokens/tokens.css`
-- [ ] 4. Port **Theme**: `ThemeProvider`, `ThemeToggle` — verify dark/light toggle works in Storybook
-- [ ] 5. Port **Primitives** one by one — verify each in Storybook in both themes before moving to the next
-- [ ] 6. Port **Compounds** one by one — compose from already-ported primitives, verify in Storybook
-- [ ] 7. Port **Wrappers** one by one — use mix of primitives and compounds as story fill content
-- [ ] 8. Configure `src/index.ts` (exports + token CSS import)
-- [ ] 9. Configure Vite library build, verify `dist/` output
-- [ ] 10. Deploy Storybook to Vercel
-- [ ] 11. Pre-publish checklist (do before step 12):
+- [x] 3. Migrate `tokens.css` → `src/tokens/tokens.css` + build full Storybook token docs (Colors, Fonts, Typography)
+- [ ] 4. Port **Atoms / Typography**: `H1`, `H2`, `H3`, `H4`, `P`, `Lead`, `Blockquote`, `InlineCode`
+- [ ] 5. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
+- [ ] 6. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
+- [ ] 7. Port **Molecules**: `Field`, `Banner`
+- [ ] 8. Port **Organisms**: `Card`, `FeaturedCard`, `Modal`, `Tabs`, `Accordion`, `Table`, `CodeBlock`
+- [ ] 9. Port **Wrappers**: `Stack`, `Row`, `Container`, `Section`, `EditorialGrid`
+- [ ] 10. Port **Theme**: `Stripe`, `Eyebrow`, `ThemeProvider`, `ThemeToggle`
+- [ ] 11. Port **Page**: `Header`, `Nav`, `Hero`, `Footer`
+- [ ] 12. Configure `src/index.ts` (exports + token CSS import)
+- [ ] 13. Configure Vite library build, verify `dist/` output
+- [ ] 14. Deploy Storybook to Vercel
+- [ ] 15. Pre-publish checklist (do before step 16):
   - Add `homepage`, `bugs`, `engines` fields to `package.json`
   - Rewrite `README.md` for consumers (install, usage, peer deps, Next.js caveat, Storybook link)
   - Add GitHub Actions CI workflow (tsc + Vitest + Chromatic on every push)
-- [ ] 12. Publish `@salimdellali/ui@1.0.0` to npm
-- [ ] 13. Test in a fresh React project end-to-end
-- [ ] 14. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
+- [ ] 16. Publish `@salimdellali/ui@1.0.0` to npm
+- [ ] 17. Test in a fresh React project end-to-end
+- [ ] 18. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
