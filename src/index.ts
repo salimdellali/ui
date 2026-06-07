@@ -1,4 +1,3 @@
 import "./tokens/tokens.css"
 
-// components will be exported here
-export {}
+export { H1 } from "./components/atoms/typography/H1"

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0] - 2026-06-07
+
+### Added
+- `H1` typography atom — token-driven page-level heading component with
+  `className` extension point and autodocs-enabled Storybook story
+
 ## [0.3.0] — 2026-05-23
 
 ### Added
