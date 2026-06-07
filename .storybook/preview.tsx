@@ -3,7 +3,6 @@
 import { DocsContainer } from "@storybook/addon-docs/blocks"
 import type { Decorator, Preview } from "@storybook/react-vite"
 import React from "react"
-import { addons } from "storybook/preview-api"
 import { themes } from "storybook/theming"
 import "../src/tokens/tokens.css"
 
@@ -26,18 +25,21 @@ const withTheme: Decorator = (Story, context) => {
 // DocsContainer that receives a Storybook theme object (themes.dark / themes.light)
 // which re-skins the docs chrome (typography, backgrounds, borders).
 
-// Reads the active theme from localStorage on mount (written by withTheme on
-// every story render, so it always reflects the toolbar value). Subscribes to
-// the globalsUpdated channel event to stay in sync when the user clicks the toggle.
+// Reads data-theme from the document on mount (set by withTheme on every story
+// render). A MutationObserver keeps it in sync whenever withTheme updates the
+// attribute, which is more reliable than the globalsUpdated channel event whose
+// payload can carry a stale value.
 function useThemeGlobal() {
-  const [theme, setTheme] = React.useState(() => localStorage.getItem("sd-theme") ?? "dark")
+  const [theme, setTheme] = React.useState(
+    () => document.documentElement.getAttribute("data-theme") ?? localStorage.getItem("sd-theme") ?? "dark",
+  )
   React.useEffect(() => {
-    const channel = addons.getChannel()
-    const onChange = ({ globals }: { globals?: { theme?: string } }) => {
-      if (globals?.theme) setTheme(globals.theme)
-    }
-    channel.on("globalsUpdated", onChange)
-    return () => channel.off("globalsUpdated", onChange)
+    const observer = new MutationObserver(() => {
+      const t = document.documentElement.getAttribute("data-theme")
+      if (t) setTheme(t)
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] })
+    return () => observer.disconnect()
   }, [])
   return theme
 }
