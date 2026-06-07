@@ -32,4 +32,3 @@ type Story = StoryObj<typeof H1>
 export const Default: Story = {
   args: { children: "Chasing 16 sunrises over nominal software. Orbiting momentum." },
 }
-
