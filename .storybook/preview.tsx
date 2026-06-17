@@ -3,6 +3,7 @@
 import { DocsContainer } from "@storybook/addon-docs/blocks"
 import type { Decorator, Preview } from "@storybook/react-vite"
 import React from "react"
+import { addons } from "storybook/preview-api"
 import { themes } from "storybook/theming"
 import "../src/tokens/tokens.css"
 
@@ -25,31 +26,58 @@ const withTheme: Decorator = (Story, context) => {
 // DocsContainer that receives a Storybook theme object (themes.dark / themes.light)
 // which re-skins the docs chrome (typography, backgrounds, borders).
 
-// Reads data-theme from the document on mount (set by withTheme on every story
-// render). A MutationObserver keeps it in sync whenever withTheme updates the
-// attribute, which is more reliable than the globalsUpdated channel event whose
-// payload can carry a stale value.
+// Reads the current theme from localStorage (set by withTheme on story renders)
+// and subscribes to the globals channel so pure MDX pages (no story = no
+// withTheme) also respond to the toolbar toggle.
 function useThemeGlobal() {
   const [theme, setTheme] = React.useState(
-    () => document.documentElement.getAttribute("data-theme") ?? localStorage.getItem("sd-theme") ?? "dark",
+    () =>
+      document.documentElement.getAttribute("data-theme") ??
+      localStorage.getItem("sd-theme") ??
+      "dark",
   )
   React.useEffect(() => {
+    const applyTheme = (t: string) => {
+      document.documentElement.setAttribute("data-theme", t)
+      document.body.style.background = "var(--bg)"
+      localStorage.setItem("sd-theme", t)
+      setTheme(t)
+    }
+    const channel = addons.getChannel()
+    const handler = ({ globals }: { globals: Record<string, unknown> }) => {
+      const t = (globals.theme as string) ?? "dark"
+      applyTheme(t)
+    }
+    channel.on("globalsUpdated", handler)
     const observer = new MutationObserver(() => {
       const t = document.documentElement.getAttribute("data-theme")
       if (t) setTheme(t)
     })
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] })
-    return () => observer.disconnect()
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    })
+    return () => {
+      channel.off("globalsUpdated", handler)
+      observer.disconnect()
+    }
   }, [])
   return theme
 }
 
-// Replaces the default DocsContainer with one that passes the active Storybook
-// theme to the docs chrome. Wired in via parameters.docs.container below.
-function ThemedDocsContainer({ context, children }: { context: any; children: React.ReactNode }) {
+function ThemedDocsContainer({
+  context,
+  children,
+}: {
+  context: Parameters<typeof DocsContainer>[0]["context"]
+  children: React.ReactNode
+}) {
   const theme = useThemeGlobal()
   return (
-    <DocsContainer context={context} theme={theme === "dark" ? themes.dark : themes.light}>
+    <DocsContainer
+      context={context}
+      theme={theme === "dark" ? themes.dark : themes.light}
+    >
       {children}
     </DocsContainer>
   )
@@ -65,6 +93,11 @@ const preview: Preview = {
   decorators: [withTheme], // THEME TOGGLE — applies data-theme to the story canvas
   parameters: {
     docs: { container: ThemedDocsContainer }, // GENERATED DOCS PAGE — themes the docs chrome
+    options: {
+      storySort: {
+        order: ["Introduction"],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
