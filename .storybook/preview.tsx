@@ -56,6 +56,7 @@ function ThemedDocsContainer({ context, children }: { context: any; children: Re
 }
 
 const preview: Preview = {
+  loaders: [async () => { await document.fonts.ready }],
   globalTypes: {
     // Initializes globals.theme with defaultValue: "dark" so withTheme and the
     // custom addon in manager.tsx both receive "dark" on first render
