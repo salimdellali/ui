@@ -1,6 +1,6 @@
 {
   "name": "@salimdellali/ui",
-  "version": "0.4.0-alpha.1",
+  "version": "0.4.0-alpha.2",
   "description": "Salim Dellali's personal React component library — pure CSS, zero config, fully typed.",
   "keywords": [
     "react",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/salimdellali/ui"
+    "url": "git+https://github.com/salimdellali/ui.git"
   },
   "engines": {
     "node": ">=24.0.0",
@@ -29,7 +29,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
       "require": "./dist/index.cjs.js"
-    }
+    },
+    "./styles": "./dist/ui.css"
   },
   "files": [
     "dist"

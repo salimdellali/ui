@@ -191,18 +191,88 @@ The JS filenames are independent — controlled explicitly via the `fileName` op
 
 ### The automatic CSS loading problem
 
-Vite lib mode **extracts CSS out of the JS output** — the built `index.es.js` has no CSS import preserved in it. This means a consumer's bundler won't pick up `ui.css` automatically just from `import { H1 } from '@salimdellali/ui'`. They'd need to manually add `import '@salimdellali/ui/dist/ui.css'` in their app — exactly the extra step we want to avoid.
+Vite lib mode **extracts CSS out of the JS output** — the built `index.es.js` has no CSS import preserved in it. This means a consumer's bundler won't pick up `ui.css` automatically just from `import { H1 } from '@salimdellali/ui'`.
 
-The fix is exposing the CSS via the `exports` field in `package.json`:
+**Confirmed by smoke test (0.4.0-alpha.1):** H1 rendered with the correct `sd-h1` class but zero styles applied. The browser showed an empty `<style type="text/css"></style>` tag — `ui.css` was never loaded.
 
+### Two options considered
+
+**Option A — `vite-plugin-css-injected-by-js`**
+Converts all CSS into a JS string and injects it via `document.createElement('style')` at runtime. True zero-config for consumers — import the component, styles appear.
+
+| Pro | Con |
+|---|---|
+| No manual import step for consumers | Breaks in SSR/Node (no `document`) |
+| One npm install and done | CSS bundled into JS — not independently cacheable |
+| | Next.js and other SSR frameworks affected |
+
+**Option B — manual CSS import via `exports` field**
+Consumer writes one line once in their app entry point:
+```js
+import '@salimdellali/ui/styles'
+```
+Exposed via a clean `exports` entry in `package.json`:
 ```json
 "exports": {
   ".": { ... },
-  "./dist/ui.css": "./dist/ui.css"
+  "./styles": "./dist/ui.css"
 }
 ```
 
-Then consumers can explicitly import it once with a clean path, or it can be documented as the single setup step. **Verify this during the alpha smoke test** — install in a fresh project and check if H1 renders with styles applied. That will confirm whether CSS loads automatically or needs the exports fix.
+| Pro | Con |
+|---|---|
+| SSR-safe | One extra setup line for consumers |
+| CSS and JS cached independently by the browser | |
+| What serious UI kits do (Ant Design, Mantine) | |
+
+### Target audience determines the right approach
+
+| Target | Best approach |
+|---|---|
+| Vite + React SPA only | `vite-plugin-css-injected-by-js` — true one-step install, no manual CSS import |
+| Any React user (Vite, Next.js, Remix, SSR) | Manual CSS import via `exports` field — universally compatible |
+
+If you know your consumers will never use SSR, the injection plugin is the cleaner DX. The moment you open the door to Next.js or any SSR framework, you need the manual import — you can't control whether `document` exists in the consumer's environment.
+
+This library targets **any React user** → manual CSS import is the correct choice.
+
+### Decision: Option B
+
+The 1-line import is a one-time setup cost. The performance and compatibility wins are permanent. Losing SSR support and independent caching to save one line of consumer code is not a good trade.
+
+The `exports` fix makes the import path clean (`@salimdellali/ui/styles` instead of `@salimdellali/ui/dist/ui.css`) and is the correct solution.
+
+### The `exports` field blocks unlisted paths
+
+Attempting to import `@salimdellali/ui/dist/ui.css` directly produced this error:
+
+```
+[plugin:builtin:vite-resolve] "./dist/ui.css" is not exported under the conditions
+["module", "browser", "development", "import"] from package @salimdellali/ui
+(see exports field in package.json)
+```
+
+Once a package defines an `exports` field, bundlers enforce it strictly — **any path not explicitly listed is blocked**, even if the file physically exists in `node_modules`. This is by design: `exports` is a package encapsulation boundary.
+
+The fix is to explicitly expose the CSS under a clean public path:
+
+```json
+"exports": {
+  ".": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.es.js",
+    "require": "./dist/index.cjs.js"
+  },
+  "./styles": "./dist/ui.css"
+}
+```
+
+Consumer import:
+```js
+import '@salimdellali/ui/styles'
+```
+
+**Lesson:** if you define `exports`, you own the full public surface of your package. Anything you want consumers to reach must be listed — including CSS, sub-paths, and type-only entries.
 
 ---
 
@@ -220,6 +290,38 @@ Two different concepts, both involve compression:
 - The consumer builds their app, the bundler pulls in only the parts of your package they use (tree-shaking), bundles it, and the web server gzips the result
 - Size matters for the end user's page load time
 - A 50KB tarball can produce a 3KB gzipped bundle if most of it is unused and tree-shaken away
+
+---
+
+## Authenticating with the Registry
+
+Before you can publish, your machine needs to be authenticated with npm. This is a one-time setup per machine.
+
+```bash
+npm login
+```
+
+This opens a browser window where you log into your npm account. Once done, npm stores a token in `~/.npmrc`. Every subsequent `npm publish` on that machine uses that token automatically.
+
+`npm adduser` is an alias for the same command — they are identical.
+
+---
+
+## Fixing package.json Formatting (`npm pkg fix`)
+
+npm has canonical formats for certain `package.json` fields. If yours don't match, npm will warn you on publish and auto-correct them in the registry — but your local file stays wrong.
+
+```bash
+npm pkg fix
+```
+
+This rewrites the affected fields in your local `package.json` to match what npm expects. Common corrections:
+
+| Field | Before | After |
+|---|---|---|
+| `repository.url` | `https://github.com/user/repo.git` | `git+https://github.com/user/repo.git` |
+
+Non-destructive — it only touches fields npm knows the canonical format for. Run it before your first publish and commit the result.
 
 ---
 
