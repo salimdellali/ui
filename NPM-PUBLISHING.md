@@ -245,6 +245,57 @@ If both exist, `files` takes precedence. Stick to `files` — it is easier to re
 
 ---
 
+## Pre-release Versions and Dist-tags
+
+### What a dist-tag is
+
+Every version on npm has a **dist-tag** — a named pointer to a specific version. The default tag is `latest`, which is what `npm install your-package` resolves to when no version is specified.
+
+```bash
+npm install @salimdellali/ui          # installs whatever "latest" points to
+npm install @salimdellali/ui@alpha    # installs whatever "alpha" points to
+npm install @salimdellali/ui@0.4.0-alpha.1  # installs that exact version
+```
+
+### Pre-release version naming
+
+Semver supports pre-release identifiers after a hyphen:
+
+| Identifier | Convention |
+|---|---|
+| `alpha` | Early, unstable — APIs may change |
+| `beta` | Feature-complete, may have bugs |
+| `rc` | Release candidate — ready unless bugs found |
+| `canary` | Cutting-edge nightly-style (Next.js convention) |
+
+Example: `0.4.0-alpha.1`, `0.4.0-beta.2`, `1.0.0-rc.1`
+
+The `.1` suffix lets you publish multiple iterations under the same pre-release stage without bumping the base version.
+
+### The mandatory `--tag` flag
+
+**Always pass `--tag` when publishing a pre-release.** Without it, npm sets the `latest` tag — meaning anyone who does `npm install @salimdellali/ui` gets your alpha.
+
+```bash
+# Correct
+npm publish --access public --tag alpha
+
+# Dangerous — makes 0.4.0-alpha.1 the "latest" version
+npm publish --access public
+```
+
+### When to publish a pre-release vs use `npm pack`
+
+| Goal | Tool |
+|---|---|
+| Test CDN delivery and registry metadata (readme, keywords, install flow) | Publish pre-release with `--tag` |
+| Quick iteration — test the tarball locally without polluting the registry | `npm pack` + `npm install /path/to/tarball.tgz` |
+| Let a collaborator test the package | Publish pre-release |
+
+Once comfortable with the publishing flow, `npm pack` is faster for day-to-day smoke testing. The pre-release publish is the right move the first time — it exercises the full path a real consumer experiences.
+
+---
+
 ## Things That Surprised Me
 
 - **You cannot unpublish after 72 hours.** npm allows unpublish within the first 72 hours, after that the package is permanent (you can deprecate but not delete). Publish deliberately.
@@ -298,5 +349,6 @@ If your package produces different visual output depending on what a third-party
 5. Scoped packages and access
 6. `npm pack --dry-run` — always check before you ship
 7. Semver — why it matters for consumers
-8. Common mistakes (forgetting `external`, no `files` field, wrong `peerDependencies`)
-9. Live demo: publish v1.0.0 of a toy package
+8. Pre-release versions and dist-tags — the `--tag` trap (live demo: publish without `--tag`, show it hijacks `latest`, unpublish, redo with `--tag alpha`)
+9. Common mistakes (forgetting `external`, no `files` field, wrong `peerDependencies`)
+10. Live demo: publish v1.0.0 of a toy package

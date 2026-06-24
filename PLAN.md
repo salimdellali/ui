@@ -240,21 +240,23 @@ Publishing is manual. Automation via GitHub Actions or a Claude skill may be add
 - [x] 1. Initialize repo: `package.json`, `tsconfig.json`, `vite.config.ts`, `LICENSE`
 - [x] 2. Install dependencies via CLI (`tsc --init`, `npx storybook@latest init`) — React 19, TypeScript 6, Vite 8, Storybook 10, Vitest, Playwright
 - [x] 3. Migrate `tokens.css` → `src/tokens/tokens.css` + build full Storybook token docs (Colors, Fonts, Typography)
-- [ ] 4. Port **Atoms / Typography**: `H1`, `H2`, `H3`, `H4`, `P`, `Lead`, `Blockquote`, `InlineCode`
-- [ ] 5. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
-- [ ] 6. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
-- [ ] 7. Port **Molecules**: `Field`, `Banner`
-- [ ] 8. Port **Organisms**: `Card`, `FeaturedCard`, `Modal`, `Tabs`, `Accordion`, `Table`, `CodeBlock`
-- [ ] 9. Port **Wrappers**: `Stack`, `Row`, `Container`, `Section`, `EditorialGrid`
-- [ ] 10. Port **Theme**: `Stripe`, `Eyebrow`, `ThemeProvider`, `ThemeToggle`
-- [ ] 11. Port **Page**: `Header`, `Nav`, `Hero`, `Footer`
-- [ ] 12. Configure `src/index.ts` (exports + token CSS import)
-- [ ] 13. Configure Vite library build, verify `dist/` output
-- [ ] 14. Deploy Storybook to Vercel
-- [ ] 15. Pre-publish checklist (do before step 16):
+- [x] 4. Port **Atoms / Typography**: `H1` only
+- [ ] 5. Smoke-test npm publishing — build `dist/`, publish a pre-release (`0.4.0-alpha.1`), install in a fresh React project, verify `H1` renders correctly end-to-end
+- [ ] 6. Port **Atoms / Typography** (remaining): `H2`, `H3`, `H4`, `P`, `Lead`, `Blockquote`, `InlineCode`
+- [ ] 7. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
+- [ ] 8. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
+- [ ] 9. Port **Molecules**: `Field`, `Banner`
+- [ ] 10. Port **Organisms**: `Card`, `FeaturedCard`, `Modal`, `Tabs`, `Accordion`, `Table`, `CodeBlock`
+- [ ] 11. Port **Wrappers**: `Stack`, `Row`, `Container`, `Section`, `EditorialGrid`
+- [ ] 12. Port **Theme**: `Stripe`, `Eyebrow`, `ThemeProvider`, `ThemeToggle`
+- [ ] 13. Port **Page**: `Header`, `Nav`, `Hero`, `Footer`
+- [ ] 14. Configure `src/index.ts` (exports + token CSS import)
+- [ ] 15. Configure Vite library build, verify `dist/` output
+- [ ] 16. Deploy Storybook to Vercel
+- [ ] 17. Pre-publish checklist (do before step 18):
   - Add `homepage`, `bugs`, `engines` fields to `package.json`
   - Rewrite `README.md` for consumers (install, usage, peer deps, Next.js caveat, Storybook link)
   - Add GitHub Actions CI workflow (tsc + Vitest + Chromatic on every push)
-- [ ] 16. Publish `@salimdellali/ui@1.0.0` to npm
-- [ ] 17. Test in a fresh React project end-to-end
-- [ ] 18. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
+- [ ] 18. Publish `@salimdellali/ui@1.0.0` to npm
+- [ ] 19. Test in a fresh React project end-to-end
+- [ ] 20. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
