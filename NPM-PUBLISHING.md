@@ -181,6 +181,29 @@ build: {
 
 `external` is how you tell the bundler not to bundle your peer dependencies. If you forget this, React ends up inside your package's JS file.
 
+### CSS output filename
+
+In Vite lib mode, the CSS output filename is derived from the unscoped part of your package name in `package.json`. For `@salimdellali/ui` that means `dist/ui.css`.
+
+`cssCodeSplit: false` controls **how many CSS files are emitted** — one combined file vs. one file per component chunk. It has nothing to do with whether consumers need to manually import CSS. The benefit here is a single, predictably named output file rather than multiple generated chunks with hashed names.
+
+The JS filenames are independent — controlled explicitly via the `fileName` option in `vite.config.ts`. Without that override they would also follow the package name (`ui.es.js`, `ui.cjs.js`).
+
+### The automatic CSS loading problem
+
+Vite lib mode **extracts CSS out of the JS output** — the built `index.es.js` has no CSS import preserved in it. This means a consumer's bundler won't pick up `ui.css` automatically just from `import { H1 } from '@salimdellali/ui'`. They'd need to manually add `import '@salimdellali/ui/dist/ui.css'` in their app — exactly the extra step we want to avoid.
+
+The fix is exposing the CSS via the `exports` field in `package.json`:
+
+```json
+"exports": {
+  ".": { ... },
+  "./dist/ui.css": "./dist/ui.css"
+}
+```
+
+Then consumers can explicitly import it once with a clean path, or it can be documented as the single setup step. **Verify this during the alpha smoke test** — install in a fresh project and check if H1 renders with styles applied. That will confirm whether CSS loads automatically or needs the exports fix.
+
 ---
 
 ## Tarball vs Gzipped Bundle

@@ -40,7 +40,7 @@ export default defineConfig({
         },
       },
     },
-    cssCodeSplit: false,
+    cssCodeSplit: false, // bundle all CSS into one file (dist/ui.css) instead of one file per component
   },
   test: {
     projects: [

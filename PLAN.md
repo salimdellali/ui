@@ -156,7 +156,7 @@ dist/
   index.es.js    ← ESM (for Vite, modern bundlers)
   index.cjs.js   ← CommonJS (for older setups e.g. legacy Jest)
   index.d.ts     ← TypeScript type declarations
-  style.css      ← compiled CSS (loaded automatically via index.ts import)
+  ui.css         ← compiled CSS (loaded automatically via index.ts import)
 ```
 
 `package.json` exports field points consumers to the right file based on their bundler.
