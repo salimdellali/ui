@@ -305,6 +305,33 @@ This opens a browser window where you log into your npm account. Once done, npm 
 
 `npm adduser` is an alias for the same command — they are identical.
 
+### Skipping OTP Prompts with an Automation Token
+
+By default, `npm publish` requires you to enter a TOTP code from your authenticator app on every publish — even if you're already logged in. This gets tedious during rapid iteration.
+
+**Fix:** create a **granular access token** with 2FA bypass enabled and add it to `~/.npmrc`.
+
+**One-time setup on npmjs.com:**
+1. Profile picture → **Access Tokens** → **Generate New Token** → **Granular Access Token**
+2. Name it (e.g. `macbook-cli`)
+3. Check **Bypass two-factor authentication**
+4. Packages and scopes → Permissions: **Read and write** → **All Packages**
+5. Set an expiration → **Generate Token** → copy it immediately (shown once)
+
+**Add it to `~/.npmrc`:**
+```bash
+npm config set //registry.npmjs.org/:_authToken=YOUR_TOKEN_HERE
+```
+
+This writes one line to `~/.npmrc`:
+```
+//registry.npmjs.org/:_authToken=npm_xxxxxxxxxxxx
+```
+
+Every subsequent `npm publish` uses this token automatically — no OTP prompt.
+
+**Security note:** the token still authenticates you — it just skips TOTP. Your account 2FA remains active for browser logins. Treat the token like a password: never commit it, never paste it in chat.
+
 ---
 
 ## Fixing package.json Formatting (`npm pkg fix`)

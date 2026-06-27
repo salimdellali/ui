@@ -1,22 +1,27 @@
-# CODING AGENTS: READ THIS FIRST
+# @salimdellali/ui
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+My personal, opinionated React component library — pure CSS, fully typed.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## What is this?
 
-## What you should do — IMPORTANT
+A component library and design token system. Every component maps directly to a set of CSS custom properties, keeping the styling predictable and overridable.
 
-**Find the primary design file under `salim-dellali-design-system/project/` and read it top to bottom.** Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## What to expect
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+- **Tokens**: design primitives: colors, typography scale, and spacing. These are the raw CSS custom properties the components are built on.
+- **Atoms**: the smallest building blocks (headings, text, etc.). Each atom maps directly to a token or a small composition of tokens.
+- More categories (**Molecules, Organisms**) will appear here as the library grows.
 
-## About the design files
+## Installation
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+```bash
+npm i @salimdellali/ui
+```
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+Then add one import to your app entry point:
 
-## Bundle contents
+```js
+import "@salimdellali/ui/styles"
+```
 
-- `salim-dellali-design-system/README.md` — this file
-- `salim-dellali-design-system/project/` — the `Salim Dellali Design System` project files (HTML prototypes, assets, components)
+That's it — components are ready to use.
