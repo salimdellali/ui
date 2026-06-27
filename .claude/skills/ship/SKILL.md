@@ -120,3 +120,25 @@ gh pr merge --merge --delete-branch
 ```
 
 Confirm the merge succeeded, the branch was deleted, and the user is back on `main`.
+
+## Step 9 — Publish to npm (only if a version tag was created in step 2)
+
+If no version bump happened in step 2, skip this step entirely.
+
+Pull the latest `main` so the local branch is up to date after the merge:
+```
+git pull origin main
+```
+
+Then push the tag that was created in step 2. This triggers the `publish-npm.yml` GitHub Actions workflow which builds and publishes the package to npm automatically:
+```
+git push origin v[X.Y.Z]
+```
+
+Watch the publish workflow:
+```
+gh run watch $(gh run list --workflow=publish-npm.yml --limit=1 --json databaseId --jq '.[0].databaseId')
+```
+
+If the workflow succeeds: tell the user the package is live on npm under the new version.
+If it fails: tell the user to check the logs with `gh run view --log-failed`.

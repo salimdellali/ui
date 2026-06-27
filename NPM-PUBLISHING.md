@@ -263,7 +263,10 @@ The fix is to explicitly expose the CSS under a clean public path:
     "import": "./dist/index.es.js",
     "require": "./dist/index.cjs.js"
   },
-  "./styles": "./dist/ui.css"
+  "./styles": {
+    "types": "./styles.d.ts",
+    "default": "./dist/ui.css"
+  }
 }
 ```
 
@@ -271,6 +274,24 @@ Consumer import:
 ```js
 import '@salimdellali/ui/styles'
 ```
+
+The `exports` field in `package.json` is a routing table — each tool picks the condition it understands and ignores the rest:
+
+| Condition | Read by | Points to |
+|---|---|---|
+| `types` | TypeScript | `styles.d.ts` — a stub that tells TS the module exists |
+| `default` | Bundler / browser | `dist/ui.css` — the actual styles |
+
+### The `styles.d.ts` stub
+
+TypeScript requires a `.d.ts` file to acknowledge that a module exists. CSS has no types — there is nothing to export — so `styles.d.ts` contains only `export {}`.
+
+Without it, TypeScript throws:
+```
+Cannot find module or type declarations for side-effect import of '@salimdellali/ui/styles'
+```
+
+The stub lives at the **package root** (not in `dist/`) so it is never wiped by the build. It is included in the npm tarball via the `files` field in `package.json`. This is the same pattern used by Mantine and other leading UI libraries.
 
 **Lesson:** if you define `exports`, you own the full public surface of your package. Anything you want consumers to reach must be listed — including CSS, sub-paths, and type-only entries.
 
