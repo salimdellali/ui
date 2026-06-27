@@ -3,23 +3,33 @@ name: Publish to npm
 on:
   push:
     tags:
-      - "v*"
+      - "v*" # triggers only when a tag like v0.4.0-alpha.3 or v1.0.0 is pushed — not on every commit to main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5 # clones the repo into the runner, without this the job starts with an empty filesystem
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v5 # sets up Node.js and writes an .npmrc pointing to the npm registry, wires NODE_AUTH_TOKEN for authentication
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
 
-      - run: npm ci
+      - run: npm ci # clean install — installs exact versions from package-lock.json, no surprises
 
-      - run: npm run build
-
-      - run: npm publish --access public
+      # reads the version from package.json and determines the dist-tag:
+      # - prerelease (e.g. 0.4.0-alpha.3) → publishes with --tag alpha to avoid hijacking "latest"
+      # - stable (e.g. 1.0.0) → publishes without --tag, npm defaults to "latest"
+      # note: npm publish triggers prepublishOnly in package.json which runs the build automatically
+      - name: Publish to npm
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$VERSION" == *"-"* ]]; then
+            PRERELEASE=$(echo "$VERSION" | sed 's/.*-\([a-zA-Z]*\).*/\1/')
+            npm publish --access public --tag "$PRERELEASE"
+          else
+            npm publish --access public
+          fi
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # npm automation token stored as a GitHub secret — bypasses OTP on publish
