@@ -115,9 +115,14 @@ salimdellali-ui/
 npm install @salimdellali/ui
 ```
 
+Then add one import to your app entry point:
+
+```js
+import '@salimdellali/ui/styles'
+```
+
 ```tsx
 import { H1, P, Button, Card } from "@salimdellali/ui"
-// tokens.css loads automatically — no second import needed
 
 // Typography atoms work with zero props
 function QuickPage() {
@@ -221,17 +226,21 @@ Storybook addons in use:
 
 ## npm Publishing
 
+Publishing is automated via GitHub Actions (`publish-npm.yml`). Triggered by pushing a version tag.
+
+**Process:**
+1. Finish changes, bump `version` in `package.json`
+2. Commit and push to `main`
+3. Tag and push — CI handles the rest:
 ```bash
-npm version patch   # or minor / major — bumps version in package.json
-npm run build       # builds dist/
-npm publish --access public
+git tag v0.4.0-alpha.3 && git push origin --tags
 ```
+
+The workflow programmatically detects the prerelease identifier (`alpha`, `beta`, `rc`) and passes it as `--tag` to avoid hijacking `latest`. Stable versions (e.g. `1.0.0`) publish to `latest` automatically.
 
 Package name: `@salimdellali/ui`
 Starting version: `0.1.0` — stable public API declared at `1.0.0` once all components are ported and end-to-end tested.
 Versioning: semantic versioning (`0.1.0` → `0.1.1` patch, `0.2.0` minor, `1.0.0` stable release)
-
-Publishing is manual. Automation via GitHub Actions or a Claude skill may be added later as a separate learning exercise.
 
 ---
 
@@ -241,7 +250,7 @@ Publishing is manual. Automation via GitHub Actions or a Claude skill may be add
 - [x] 2. Install dependencies via CLI (`tsc --init`, `npx storybook@latest init`) — React 19, TypeScript 6, Vite 8, Storybook 10, Vitest, Playwright
 - [x] 3. Migrate `tokens.css` → `src/tokens/tokens.css` + build full Storybook token docs (Colors, Fonts, Typography)
 - [x] 4. Port **Atoms / Typography**: `H1` only
-- [ ] 5. Smoke-test npm publishing — build `dist/`, publish a pre-release (`0.4.0-alpha.1`), install in a fresh React project, verify `H1` renders correctly end-to-end
+- [x] 5. Smoke-test npm publishing — build `dist/`, publish a pre-release (`0.4.0-alpha.1`), install in a fresh React project, verify `H1` renders correctly end-to-end
 - [ ] 6. Port **Atoms / Typography** (remaining): `H2`, `H3`, `H4`, `P`, `Lead`, `Blockquote`, `InlineCode`
 - [ ] 7. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
 - [ ] 8. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
