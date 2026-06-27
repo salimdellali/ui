@@ -476,6 +476,8 @@ Once comfortable with the publishing flow, `npm pack` is faster for day-to-day s
 - **README is your npm page.** Whatever is in `README.md` at publish time is what appears on `npmjs.com`. Write it for consumers, not for contributors.
 - **`prepare` vs `prepublishOnly`.** `prepare` runs on `npm install` too (when someone installs your package from git). `prepublishOnly` runs only before publishing. Use the right one.
 - **Peer dependency warnings.** If a consumer's React version does not satisfy your `peerDependencies` range, npm will warn them. Set the range generously unless you truly require a specific version.
+- **Forgetting `--tag` on the first pre-release hijacks `latest` permanently.** This happened with `0.4.0-alpha.1` — it was published without `--tag alpha`, so npm silently set the `latest` dist-tag to an alpha version. Anyone running `npm install @salimdellali/ui` (no version specified) got the alpha instead of a stable release. The only fix is `npm dist-tag add @salimdellali/ui@<version> latest` to manually move the pointer — but this requires browser-based re-authentication even if you have an automation token. The automated `publish-npm.yml` workflow prevents this by programmatically detecting prerelease identifiers and always passing `--tag`.
+- **`npm dist-tag` requires OTP even with an automation token.** Automation tokens bypass OTP for `npm publish` but not for `dist-tag` operations. If you need to manually move a tag, npm will prompt you to authenticate via browser.
 
 ---
 

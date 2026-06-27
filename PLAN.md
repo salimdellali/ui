@@ -4,7 +4,7 @@
 
 1. **npm package** — `@salimdellali/ui` published publicly on npm. Any React project can install and use components out of the box, with full TypeScript prop autocompletion.
 2. **Storybook site** — hosted on Vercel. Publicly browsable component library. Includes interaction tests and accessibility checks per component.
-3. **Single install, zero config** — `npm install @salimdellali/ui` is the only step. CSS tokens load automatically. No separate CSS import required by the consumer.
+3. **Two-step install** — `npm install @salimdellali/ui` then `import '@salimdellali/ui/styles'` in the app entry point. CSS import is a one-time setup cost; required for SSR compatibility.
 4. **Component-by-component migration** — each component is migrated from JSX → TSX one at a time, verified in Storybook before moving to the next.
 
 ---
@@ -259,13 +259,13 @@ Versioning: semantic versioning (`0.1.0` → `0.1.1` patch, `0.2.0` minor, `1.0.
 - [ ] 11. Port **Wrappers**: `Stack`, `Row`, `Container`, `Section`, `EditorialGrid`
 - [ ] 12. Port **Theme**: `Stripe`, `Eyebrow`, `ThemeProvider`, `ThemeToggle`
 - [ ] 13. Port **Page**: `Header`, `Nav`, `Hero`, `Footer`
-- [ ] 14. Configure `src/index.ts` (exports + token CSS import)
-- [ ] 15. Configure Vite library build, verify `dist/` output
-- [ ] 16. Deploy Storybook to Vercel
-- [ ] 17. Pre-publish checklist (do before step 18):
+- [x] 14. Configure `src/index.ts` (exports + token CSS import)
+- [x] 15. Configure Vite library build, verify `dist/` output
+- [x] 16. Deploy Storybook to Vercel
+- [x] 17. Pre-publish checklist (do before step 18):
   - Add `homepage`, `bugs`, `engines` fields to `package.json`
   - Rewrite `README.md` for consumers (install, usage, peer deps, Next.js caveat, Storybook link)
   - Add GitHub Actions CI workflow (tsc + Vitest + Chromatic on every push)
 - [ ] 18. Publish `@salimdellali/ui@1.0.0` to npm
-- [ ] 19. Test in a fresh React project end-to-end
+- [x] 19. Test in a fresh React project end-to-end
 - [ ] 20. Delete the `project/` folder (legacy prototype — fully replaced by `src/`)
