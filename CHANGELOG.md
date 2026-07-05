@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.0] - 2026-07-05
+
+### Added
+- `H3` typography atom — token-driven subsection heading component with
+  `className` extension point and autodocs-enabled Storybook story
+
 ## [0.5.0] - 2026-07-05
 
 ### Added
