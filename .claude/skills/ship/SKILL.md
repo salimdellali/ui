@@ -16,7 +16,11 @@ Run `git status`. Summarize what has changed (modified, added, deleted files). T
 Check whether `src/index.ts` changed (consumer-facing package change).
 
 **If `src/index.ts` changed:**
-1. Explain what changed and recommend a semver bump (patch / minor / major).
+1. Read the current version from `package.json`. Explain what changed and recommend a semver bump:
+   - `patch` — fix or tweak to an existing component, no new or removed exports
+   - `minor` — new component exported, OR a removal/breaking change while still on v0.x (semver allows this before v1)
+   - `major` — breaking change on v1+: removed export, renamed prop, changed behavior that breaks consumers
+
    Ask: "Version bump? (patch / minor / major)"
    Wait for answer.
 2. Run `npm version [patch|minor|major] --no-git-tag-version`
