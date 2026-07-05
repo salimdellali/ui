@@ -31,7 +31,6 @@ Check whether `src/index.ts` changed (consumer-facing package change).
    - anything else → process what the user said
    Wait before writing.
 5. Write the confirmed entry into `CHANGELOG.md` below the `# Changelog` heading.
-6. Run `git tag v[X.Y.Z]`
 
 **If `src/index.ts` did not change:**
 Skip version bump and CHANGELOG. Proceed to step 3.
@@ -71,6 +70,11 @@ EOF
 ```
 
 Print the commit hash on success.
+
+**If a version bump happened in step 2**, tag the commit just created:
+```
+git tag v[X.Y.Z]
+```
 
 ## Step 5 — Push
 
