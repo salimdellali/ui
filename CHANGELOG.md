@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.0] - 2026-08-03
+
+### Added
+- `P` typography atom — token-driven body paragraph component with `className` extension point and autodocs-enabled Storybook story
+- `--lh-loosest` line-height token (2) to the type scale
+
 ## [0.6.0] - 2026-07-05
 
 ### Added

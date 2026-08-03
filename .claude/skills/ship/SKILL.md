@@ -77,10 +77,12 @@ git add -A
 git commit -m "$(cat <<'EOF'
 <confirmed message>
 
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Co-Authored-By: <current model name> <noreply@anthropic.com>
 EOF
 )"
 ```
+
+`<current model name>` must be the actual model running this session (e.g. "Claude Sonnet 5", "Claude Fable 5") — check the system info for the session's real model name each time rather than reusing whatever name appears in this file, since that goes stale the moment you switch models (for cost, capability, or availability reasons). Never hardcode a specific model name here.
 
 Print the commit hash on success.
 

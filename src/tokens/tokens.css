@@ -185,6 +185,7 @@
   --lh-snug: 1.25;
   --lh-normal: 1.5;
   --lh-loose: 1.7;
+  --lh-loosest: 2;
 
   /* --tracking-* = letter spacing (typographic term for uniform inter-letter spacing) */
   --tracking-tight: -0.02em;
