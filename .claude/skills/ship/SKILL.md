@@ -11,7 +11,20 @@ Run `git branch --show-current`. If on `main`, **stop** and tell the user to run
 
 Run `git status`. Summarize what has changed (modified, added, deleted files). This is what will be committed — make sure the user is aware of everything in scope.
 
-## Step 2 — Determine commit type
+## Step 2 — Run tests locally
+
+Run:
+```
+npm run test
+```
+
+Component behavior tests (Storybook `play` functions via `@storybook/addon-vitest`) are **not** wired into `ci.yml` — deliberately, to keep CI fast while components are still being scaffolded. This step is the substitute gate: it must pass before shipping.
+
+If it fails: **stop**. Show the failure output and tell the user to fix it before continuing. Do not proceed to Step 3.
+
+If it passes: proceed.
+
+## Step 3 — Determine commit type
 
 Check whether `src/index.ts` changed (consumer-facing package change).
 
@@ -33,9 +46,9 @@ Check whether `src/index.ts` changed (consumer-facing package change).
 5. Write the confirmed entry into `CHANGELOG.md` below the `# Changelog` heading.
 
 **If `src/index.ts` did not change:**
-Skip version bump and CHANGELOG. Proceed to step 3.
+Skip version bump and CHANGELOG. Proceed to step 4.
 
-## Step 3 — Suggest commit message
+## Step 4 — Suggest commit message
 
 Suggest a concise conventional commit message using one of:
 - `(claude) feat:` — new feature
@@ -51,7 +64,7 @@ Show the suggested message and ask: "Commit message? (y / n / or anything else)"
 - `n` → stop
 - anything else typed → process what the user said
 
-## Step 4 — Stage and commit
+## Step 5 — Stage and commit
 
 Show all files that will be staged (`git status`). Ask: "Stage all and commit? (y / n)"
 
@@ -71,12 +84,12 @@ EOF
 
 Print the commit hash on success.
 
-**If a version bump happened in step 2**, tag the commit just created:
+**If a version bump happened in step 3**, tag the commit just created:
 ```
 git tag v[X.Y.Z]
 ```
 
-## Step 5 — Push
+## Step 6 — Push
 
 Run:
 ```
@@ -85,7 +98,7 @@ git push -u origin <branch-name>
 
 Confirm the push succeeded.
 
-## Step 6 — Open PR
+## Step 7 — Open PR
 
 Suggest a PR title (same as the commit message by default) and a short body covering what changed and a markdown test checklist.
 
@@ -102,7 +115,7 @@ gh pr create --title "..." --body "..."
 
 Print the PR URL.
 
-## Step 7 — Watch CI checks
+## Step 8 — Watch CI checks
 
 Run:
 ```
@@ -115,12 +128,12 @@ If any check failed: **stop**. List the failed checks and tell the user to fix t
 
 If all checks passed: ask "All checks passed. Merge to main? (y / n)"
 
-- `y` → merge and clean up (see step 8)
+- `y` → merge and clean up (see step 9)
 - `n` → stop
 
 Wait for confirmation before proceeding.
 
-## Step 8 — Merge and clean up
+## Step 9 — Merge and clean up
 
 Run:
 ```
@@ -129,16 +142,16 @@ gh pr merge --merge --delete-branch
 
 Confirm the merge succeeded, the branch was deleted, and the user is back on `main`.
 
-## Step 9 — Publish to npm (only if a version tag was created in step 2)
+## Step 10 — Publish to npm (only if a version tag was created in step 3)
 
-If no version bump happened in step 2, skip this step entirely.
+If no version bump happened in step 3, skip this step entirely.
 
 Pull the latest `main` so the local branch is up to date after the merge:
 ```
 git pull origin main
 ```
 
-Then push the tag that was created in step 2. This triggers the `publish-npm.yml` GitHub Actions workflow which builds and publishes the package to npm automatically:
+Then push the tag that was created in step 3. This triggers the `publish-npm.yml` GitHub Actions workflow which builds and publishes the package to npm automatically:
 ```
 git push origin v[X.Y.Z]
 ```
