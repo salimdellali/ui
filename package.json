@@ -50,6 +50,9 @@
     "dev": "storybook dev -p 6006",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
     "prepublishOnly": "npm run build",
     "prepare": "husky"
