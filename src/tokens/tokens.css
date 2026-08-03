@@ -53,6 +53,11 @@
 }
 
 :root {
+  /* color-scheme: light dark = opt into automatic light/dark resolution
+     for light-dark() below, following the OS preference (prefers-color-scheme)
+     when no explicit [data-theme] override is present. */
+  color-scheme: light dark;
+
   /* ---------- COLOR PRIMITIVES ---------- */
   /* --sd-* = Salim Dellali primitives — raw fixed values, never theme-aware */
   --sd-black: #0a0a0a;
@@ -115,48 +120,48 @@
   );
   --sd-stripe-gradient: linear-gradient(90deg, var(--sd-yellow), var(--sd-red), var(--sd-cyan), var(--sd-purple));
 
-  /* ---------- SEMANTIC TOKENS — LIGHT ---------- */
+  /* ---------- SEMANTIC TOKENS (light-dark) ---------- */
   /* --bg = background */
-  --bg: var(--sd-paper);
-  --bg-alt: var(--sd-slate-50);
-  --bg-raised: var(--sd-white);
-  --bg-sunken: var(--sd-slate-100);
+  --bg: light-dark(var(--sd-paper), var(--sd-graphite));
+  --bg-alt: light-dark(var(--sd-slate-50), var(--sd-slate-900));
+  --bg-raised: light-dark(var(--sd-white), var(--sd-slate-700));
+  --bg-sunken: light-dark(var(--sd-slate-100), var(--sd-black));
 
   /* --fg = foreground (text/icon color) */
-  --fg: var(--sd-ink);
-  --fg-muted: var(--sd-slate-700);
-  --fg-subtle: var(--sd-slate-500);
-  --fg-disabled: var(--sd-slate-400);
-  --fg-on-accent: var(--sd-white);
+  --fg: light-dark(var(--sd-ink), var(--sd-paper));
+  --fg-muted: light-dark(var(--sd-slate-700), var(--sd-slate-300));
+  --fg-subtle: light-dark(var(--sd-slate-500), var(--sd-slate-400));
+  --fg-disabled: light-dark(var(--sd-slate-400), var(--sd-slate-500));
+  --fg-on-accent: light-dark(var(--sd-white), var(--sd-ink));
 
-  --border: var(--sd-slate-200);
-  --border-strong: var(--sd-slate-300);
-  --border-focus: var(--sd-ink);
+  --border: light-dark(var(--sd-slate-200), var(--sd-slate-900));
+  --border-strong: light-dark(var(--sd-slate-300), var(--sd-slate-400));
+  --border-focus: light-dark(var(--sd-ink), var(--sd-slate-50));
 
-  --accent: var(--sd-black);
-  --accent-hover: var(--sd-graphite);
-  --accent-press: var(--sd-slate-900);
+  --accent: light-dark(var(--sd-black), var(--sd-slate-50));
+  --accent-hover: light-dark(var(--sd-graphite), var(--sd-slate-200));
+  --accent-press: light-dark(var(--sd-slate-900), var(--sd-slate-300));
 
-  --link: var(--sd-ink);
-  --link-hover: var(--sd-red-deep);
-  --selection-bg: var(--sd-yellow-dark);
-  --selection-fg: var(--sd-ink);
+  --link: light-dark(var(--sd-ink), var(--sd-slate-50));
+  --link-hover: light-dark(var(--sd-red-deep), var(--sd-red-dark));
+  --selection-bg: light-dark(var(--sd-yellow-dark), var(--sd-yellow-deep));
+  --selection-fg: light-dark(var(--sd-ink), var(--sd-black));
 
   /* ---------- BRAND COLOR ALIASES (theme-aware) ---------- */
-  --color-yellow: var(--sd-yellow);
-  --color-yellow-deep: var(--sd-yellow-deep);
-  --color-red: var(--sd-red);
-  --color-red-deep: var(--sd-red-deep);
-  --color-cyan: var(--sd-cyan);
-  --color-cyan-deep: var(--sd-cyan-deep);
-  --color-purple: var(--sd-purple);
-  --color-purple-deep: var(--sd-purple-deep);
-  --color-green: var(--sd-green);
-  --color-green-deep: var(--sd-green-deep);
-  --color-lime: var(--sd-lime);
-  --color-lime-deep: var(--sd-lime-deep);
-  --color-maroon: var(--sd-maroon);
-  --color-maroon-deep: var(--sd-maroon-deep);
+  --color-yellow: light-dark(var(--sd-yellow), var(--sd-yellow-dark));
+  --color-yellow-deep: light-dark(var(--sd-yellow-deep), var(--sd-yellow-deep-dark));
+  --color-red: light-dark(var(--sd-red), var(--sd-red-dark));
+  --color-red-deep: light-dark(var(--sd-red-deep), var(--sd-red-deep-dark));
+  --color-cyan: light-dark(var(--sd-cyan), var(--sd-cyan-dark));
+  --color-cyan-deep: light-dark(var(--sd-cyan-deep), var(--sd-cyan-deep-dark));
+  --color-purple: light-dark(var(--sd-purple), var(--sd-purple-dark));
+  --color-purple-deep: light-dark(var(--sd-purple-deep), var(--sd-purple-deep-dark));
+  --color-green: light-dark(var(--sd-green), var(--sd-green-dark));
+  --color-green-deep: light-dark(var(--sd-green-deep), var(--sd-green-deep-dark));
+  --color-lime: light-dark(var(--sd-lime), var(--sd-lime-dark));
+  --color-lime-deep: light-dark(var(--sd-lime-deep), var(--sd-lime-deep-dark));
+  --color-maroon: light-dark(var(--sd-maroon), var(--sd-maroon-dark));
+  --color-maroon-deep: light-dark(var(--sd-maroon-deep), var(--sd-maroon-deep-dark));
 
   /* ---------- TYPE ---------- */
   --font-heading: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -212,14 +217,22 @@
   --r-xl: 20px;
   --r-pill: 9999px;
 
-  /* ---------- SHADOWS ---------- */
-  --shadow-xs: 0 1px 0 0 rgba(10, 10, 10, 0.04);
-  --shadow-sm: 0 1px 2px 0 rgba(10, 10, 10, 0.06), 0 1px 1px -1px rgba(10, 10, 10, 0.04);
-  --shadow-md: 0 2px 4px -1px rgba(10, 10, 10, 0.08), 0 4px 8px -2px rgba(10, 10, 10, 0.06);
-  --shadow-lg: 0 4px 8px -2px rgba(10, 10, 10, 0.1), 0 12px 24px -6px rgba(10, 10, 10, 0.1);
-  --shadow-xl: 0 8px 16px -4px rgba(10, 10, 10, 0.12), 0 24px 48px -12px rgba(10, 10, 10, 0.14);
-  --shadow-focus: 0 0 0 3px rgba(10, 10, 10, 0.15);
-  --shadow-focus-danger: 0 0 0 3px rgba(168, 49, 31, 0.25);
+  /* ---------- SHADOWS (light-dark) ---------- */
+  --shadow-xs: 0 1px 0 0 light-dark(rgba(10, 10, 10, 0.04), rgba(0, 0, 0, 0.5));
+  --shadow-sm:
+    0 1px 2px 0 light-dark(rgba(10, 10, 10, 0.06), rgba(0, 0, 0, 0.5)),
+    0 1px 1px -1px light-dark(rgba(10, 10, 10, 0.04), rgba(0, 0, 0, 0.4));
+  --shadow-md:
+    0 2px 4px -1px light-dark(rgba(10, 10, 10, 0.08), rgba(0, 0, 0, 0.5)),
+    0 4px 8px -2px light-dark(rgba(10, 10, 10, 0.06), rgba(0, 0, 0, 0.4));
+  --shadow-lg:
+    0 4px 8px -2px light-dark(rgba(10, 10, 10, 0.1), rgba(0, 0, 0, 0.55)),
+    0 12px 24px -6px light-dark(rgba(10, 10, 10, 0.1), rgba(0, 0, 0, 0.55));
+  --shadow-xl:
+    0 8px 16px -4px light-dark(rgba(10, 10, 10, 0.12), rgba(0, 0, 0, 0.6)),
+    0 24px 48px -12px light-dark(rgba(10, 10, 10, 0.14), rgba(0, 0, 0, 0.7));
+  --shadow-focus: 0 0 0 3px light-dark(rgba(10, 10, 10, 0.15), rgba(245, 245, 247, 0.25));
+  --shadow-focus-danger: 0 0 0 3px rgba(168, 49, 31, 0.25); /* same in both themes, no dark variant needed */
 
   /* ---------- LAYOUT ---------- */
   --container-sm: 640px;
@@ -250,53 +263,13 @@
   color: var(--selection-fg);
 }
 
+/* Manual override: ThemeProvider (or Storybook's toolbar toggle) sets
+   data-theme to force a mode regardless of OS preference. Only color-scheme
+   needs to flip — light-dark() above re-resolves every token from that. */
+[data-theme="light"] {
+  color-scheme: light;
+}
+
 [data-theme="dark"] {
-  /* --bg = background */
-  --bg: var(--sd-graphite);
-  --bg-alt: var(--sd-slate-900);
-  --bg-raised: var(--sd-slate-700);
-  --bg-sunken: var(--sd-black);
-
-  /* --fg = foreground (text/icon color) */
-  --fg: var(--sd-paper);
-  --fg-muted: var(--sd-slate-300);
-  --fg-subtle: var(--sd-slate-400);
-  --fg-disabled: var(--sd-slate-500);
-  --fg-on-accent: var(--sd-ink);
-
-  --border: var(--sd-slate-900);
-  --border-strong: var(--sd-slate-400);
-  --border-focus: var(--sd-slate-50);
-
-  --accent: var(--sd-slate-50);
-  --accent-hover: var(--sd-slate-200);
-  --accent-press: var(--sd-slate-300);
-
-  --link: var(--sd-slate-50);
-  --link-hover: var(--sd-red-dark);
-  --selection-bg: var(--sd-yellow-deep);
-  --selection-fg: var(--sd-black);
-
-  --shadow-xs: 0 1px 0 0 rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 1px 1px -1px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 2px 4px -1px rgba(0, 0, 0, 0.5), 0 4px 8px -2px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 4px 8px -2px rgba(0, 0, 0, 0.55), 0 12px 24px -6px rgba(0, 0, 0, 0.55);
-  --shadow-xl: 0 8px 16px -4px rgba(0, 0, 0, 0.6), 0 24px 48px -12px rgba(0, 0, 0, 0.7);
-  --shadow-focus: 0 0 0 3px rgba(245, 245, 247, 0.25);
-
-  /* ---------- BRAND COLOR ALIASES — DARK ---------- */
-  --color-yellow: var(--sd-yellow-dark);
-  --color-yellow-deep: var(--sd-yellow-deep-dark);
-  --color-red: var(--sd-red-dark);
-  --color-red-deep: var(--sd-red-deep-dark);
-  --color-cyan: var(--sd-cyan-dark);
-  --color-cyan-deep: var(--sd-cyan-deep-dark);
-  --color-purple: var(--sd-purple-dark);
-  --color-purple-deep: var(--sd-purple-deep-dark);
-  --color-green: var(--sd-green-dark);
-  --color-green-deep: var(--sd-green-deep-dark);
-  --color-lime: var(--sd-lime-dark);
-  --color-lime-deep: var(--sd-lime-deep-dark);
-  --color-maroon: var(--sd-maroon-dark);
-  --color-maroon-deep: var(--sd-maroon-deep-dark);
+  color-scheme: dark;
 }
