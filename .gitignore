@@ -17,7 +17,7 @@ storybook-static/
 .idea/
 
 # Personal notes (not shared)
-Checkpoint.md
+CHECKPOINT.md
 
 # Claude Code local machine config (not shared)
 .claude/settings.local.json

@@ -1,0 +1,2 @@
+- This folder groups documentation relevant to the development of this project
+- Keeping the root folder clean by holding only project config files

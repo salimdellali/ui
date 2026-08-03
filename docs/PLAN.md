@@ -51,7 +51,7 @@ Components/
     Header, Nav, Hero, Footer
 ```
 
-> Components are fully closed — no `className` prop exposed. Every component spreads `...rest` onto its root element to support `onClick`, `aria-*`, `data-testid`, and other HTML attributes without needing to prop-type each one explicitly.
+> `className` is exposed and merged onto the root element, alongside `...rest` for `onClick`, `aria-*`, `data-testid`, and other HTML attributes. It's an escape hatch, not the primary styling path — every component ships strong defaults (chosen by the author) so consumers reach for `className` rarely, not as a routine way to restyle.
 
 ---
 
