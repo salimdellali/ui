@@ -1,0 +1,11 @@
+.sd-inline-code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: var(--lh-normal);
+  color: var(--fg);
+  background-color: var(--bg-sunken);
+  border-radius: var(--r-sm);
+  padding-block: var(--sp-1);
+  padding-inline: var(--sp-2);
+}

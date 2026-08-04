@@ -26,7 +26,7 @@
 Components/
   Atoms/                       ← single-element, no composition
     Typography/                ← semantic HTML tags, token-wired, zero props needed for basic use
-      H1, H2, H3, H4
+      H1, H2, H3
       P, Lead, Blockquote
       InlineCode
     Interactive/               ← non-form interactive elements
@@ -252,7 +252,7 @@ Versioning: semantic versioning (`0.1.0` → `0.1.1` patch, `0.2.0` minor, `1.0.
 - [x] 3. Migrate `tokens.css` → `src/tokens/tokens.css` + build full Storybook token docs (Colors, Fonts, Typography)
 - [x] 4. Port **Atoms / Typography**: `H1` only
 - [x] 5. Smoke-test npm publishing — build `dist/`, publish a pre-release (`0.4.0-alpha.1`), install in a fresh React project, verify `H1` renders correctly end-to-end
-- [ ] 6. Port **Atoms / Typography** (remaining): `H2`, `H3`, `H4`, `P`, `Lead`, `Blockquote`, `InlineCode`
+- [x] 6. Port **Atoms / Typography** (remaining): `H2`, `H3`, `P`, `Lead`, `Blockquote`, `InlineCode` (`H4` skipped — not needed)
 - [ ] 7. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
 - [ ] 8. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
 - [ ] 9. Port **Molecules**: `Field`, `Banner`, `Citation`
