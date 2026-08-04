@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.8.0] - 2026-08-04
+
+### Added
+- `Lead` typography atom — token-driven intro paragraph component, larger and more spacious than `P`, meant to follow a heading and set up a section. Uses `--fs-lg` and `--lh-loosest`.
+
 ## [0.7.0] - 2026-08-03
 
 ### Added

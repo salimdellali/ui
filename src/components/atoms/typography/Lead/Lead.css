@@ -1,0 +1,9 @@
+.sd-lead {
+  font-family: var(--font-body);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  line-height: var(--lh-loosest);
+  letter-spacing: var(--tracking-normal);
+  color: var(--fg);
+  margin: 0;
+}
