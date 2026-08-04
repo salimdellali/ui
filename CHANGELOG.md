@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0] - 2026-08-04
+
+### Added
+- `InlineCode` typography atom — token-driven inline code snippet component with monospace font and a subtle background pill
+
+This completes the typography atom set from `PLAN.md` (`H4` dropped, not needed).
+
 ## [0.9.0] - 2026-08-04
 
 ### Added
