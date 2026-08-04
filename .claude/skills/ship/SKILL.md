@@ -86,10 +86,7 @@ EOF
 
 Print the commit hash on success.
 
-**If a version bump happened in step 3**, tag the commit just created:
-```
-git tag v[X.Y.Z]
-```
+Do **not** tag here — the branch may still get fix commits pushed during Step 8's CI iteration, which would leave an early tag pointing at a stale commit. Tagging happens in Step 10, after everything is actually merged.
 
 ## Step 6 — Push
 
@@ -144,7 +141,7 @@ gh pr merge --merge --delete-branch
 
 Confirm the merge succeeded, the branch was deleted, and the user is back on `main`.
 
-## Step 10 — Publish to npm (only if a version tag was created in step 3)
+## Step 10 — Tag and publish to npm (only if a version bump happened in step 3)
 
 If no version bump happened in step 3, skip this step entirely.
 
@@ -153,7 +150,17 @@ Pull the latest `main` so the local branch is up to date after the merge:
 git pull origin main
 ```
 
-Then push the tag that was created in step 3. This triggers the `publish-npm.yml` GitHub Actions workflow which builds and publishes the package to npm automatically:
+Show the commit that's about to be tagged, so it's visibly the right one before acting:
+```
+git log -1 --oneline
+```
+
+Tag `main`'s current HEAD with the version from step 3 — do this now, not earlier, so the tag always points at the exact commit that was actually merged, including any fix commits pushed during Step 8's CI iteration:
+```
+git tag v[X.Y.Z]
+```
+
+Push the tag. This triggers the `publish-npm.yml` GitHub Actions workflow which builds and publishes the package to npm automatically:
 ```
 git push origin v[X.Y.Z]
 ```

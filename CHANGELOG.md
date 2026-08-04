@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.9.0] - 2026-08-04
+
+### Added
+- `Blockquote` typography atom — token-driven quoted-content component with an inline-start border, italic muted text, and support for the standard `cite` attribute. Composes with `P` for multi-paragraph quotes.
+
 ## [0.8.0] - 2026-08-04
 
 ### Added
