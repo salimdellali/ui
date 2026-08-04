@@ -34,7 +34,7 @@ Check whether `src/index.ts` changed (consumer-facing package change).
    - `minor` — new component exported, OR a removal/breaking change while still on v0.x (semver allows this before v1)
    - `major` — breaking change on v1+: removed export, renamed prop, changed behavior that breaks consumers
 
-   Ask: "Version bump? (patch / minor / major)"
+   Ask: "Version bump? (major / minor / patch)"
    Wait for answer.
 2. Run `npm version [patch|minor|major] --no-git-tag-version`
 3. Read new version from `package.json` and confirm it.
