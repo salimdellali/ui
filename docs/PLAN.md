@@ -38,6 +38,7 @@ Components/
   Molecules/                   ← composed from atoms
     Field                      ← label + form atom + help text / error
     Banner                     ← icon + text + optional dismiss
+    Citation                   ← figure + Blockquote (+ P children) + figcaption + cite, for attributed quotes
   Organisms/                   ← complex, self-contained
     Card, FeaturedCard
     Modal, Tabs, Accordion, Table
@@ -254,7 +255,7 @@ Versioning: semantic versioning (`0.1.0` → `0.1.1` patch, `0.2.0` minor, `1.0.
 - [ ] 6. Port **Atoms / Typography** (remaining): `H2`, `H3`, `H4`, `P`, `Lead`, `Blockquote`, `InlineCode`
 - [ ] 7. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
 - [ ] 8. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
-- [ ] 9. Port **Molecules**: `Field`, `Banner`
+- [ ] 9. Port **Molecules**: `Field`, `Banner`, `Citation`
 - [ ] 10. Port **Organisms**: `Card`, `FeaturedCard`, `Modal`, `Tabs`, `Accordion`, `Table`, `CodeBlock`
 - [ ] 11. Port **Wrappers**: `Stack`, `Row`, `Container`, `Section`, `EditorialGrid`
 - [ ] 12. Port **Theme**: `Stripe`, `Eyebrow`, `ThemeProvider`, `ThemeToggle`
