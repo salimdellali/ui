@@ -38,7 +38,7 @@ type Story = StoryObj<typeof Blockquote>
 export const Default: Story = {
   args: {
     children:
-      "Chasing 16 sunrises over nominal software. Orbiting momentum until the design system holds its own weight.",
+      "Chasing 16 sunrises over nominal software. Orbiting momentum until the design system holds its own weight. Each atom ships a little steadier than the last, and the space between lines starts to matter as much as the words themselves. Read closely enough and the whole system starts to breathe.",
   },
 }
 

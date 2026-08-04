@@ -3,7 +3,7 @@
   font-size: var(--fs-base);
   font-weight: 400;
   font-style: italic;
-  line-height: var(--lh-normal);
+  line-height: var(--lh-loose);
   letter-spacing: var(--tracking-normal);
   color: var(--fg-muted);
   margin: 0;
