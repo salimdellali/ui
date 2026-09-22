@@ -5,16 +5,26 @@ on:
     tags:
       - "v*" # triggers only when a tag like v0.4.0-alpha.3 or v1.0.0 is pushed — not on every commit to main
 
+# required for npm trusted publishing (OIDC) — GitHub mints a short-lived signed
+# token for this workflow, so no long-lived npm token needs to be stored anywhere
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5 # clones the repo into the runner, without this the job starts with an empty filesystem
 
-      - uses: actions/setup-node@v5 # sets up Node.js and writes an .npmrc pointing to the npm registry, wires NODE_AUTH_TOKEN for authentication
+      - uses: actions/setup-node@v5 # sets up Node.js and writes an .npmrc pointing to the npm registry
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
+
+      # trusted publishing needs npm >= 11.5.1 and Node >= 22.14.0 — logged so a
+      # version that's too old shows up here instead of as a confusing auth failure
+      - run: node -v && npm -v
 
       - run: npm ci # clean install — installs exact versions from package-lock.json, no surprises
 
@@ -22,6 +32,8 @@ jobs:
       # - prerelease (e.g. 0.4.0-alpha.3) → publishes with --tag alpha to avoid hijacking "latest"
       # - stable (e.g. 1.0.0) → publishes without --tag, npm defaults to "latest"
       # note: npm publish triggers prepublishOnly in package.json which runs the build automatically
+      # auth comes from OIDC (see permissions above) — no NODE_AUTH_TOKEN, no stored secret.
+      # public repo + public package also means npm attaches a provenance attestation for free.
       - name: Publish to npm
         run: |
           VERSION=$(node -p "require('./package.json').version")
@@ -31,5 +43,3 @@ jobs:
           else
             npm publish --access public
           fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # npm automation token stored as a GitHub secret — bypasses OTP on publish
