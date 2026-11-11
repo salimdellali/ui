@@ -1,0 +1,59 @@
+.sd-link {
+  font: inherit;
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: var(--bw-1);
+  text-underline-offset: 0.2em;
+  border-radius: var(--r-xs);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-std),
+    text-decoration-thickness var(--dur-fast) var(--ease-std);
+}
+
+.sd-link[data-variant="standalone"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: var(--lh-normal);
+}
+
+/* The arrow is decorative: the empty alt text keeps it out of the accessible
+   name, which already carries the hidden "opens in a new tab" text. */
+.sd-link[target="_blank"]::after {
+  content: "\2197" / "";
+  display: inline-block;
+  margin-inline-start: var(--sp-1);
+  font-size: 0.85em;
+  text-decoration: none;
+}
+
+.sd-link[data-variant="standalone"][target="_blank"]::after {
+  margin-inline-start: 0;
+}
+
+@media (hover: hover) {
+  .sd-link:hover {
+    color: var(--link-hover);
+    text-decoration-thickness: var(--bw-2);
+  }
+}
+
+.sd-link:active {
+  color: var(--link-hover);
+}
+
+.sd-link:focus-visible {
+  outline: var(--bw-2) solid var(--border-focus);
+  outline-offset: var(--bw-2);
+  box-shadow: var(--shadow-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-link {
+    transition: none;
+  }
+}

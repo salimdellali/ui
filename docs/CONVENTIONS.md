@@ -39,6 +39,12 @@ Controlled by default: a `value` + `onChange` pair. The uncontrolled escape hatc
 
 Every interactive component requires a `label` prop — it's the accessible name, not optional decoration. Rendered as visible text by default; used as `aria-label` when the component is icon-only or otherwise visually label-less.
 
+`label` replaces `children` on these components: `Button` and `ButtonLink` take no `children`, so a control can never ship without a name.
+
+One exception: `Link` takes `children` instead of `label`. Link text is prose that sits inside a sentence and can hold other inline atoms (`InlineCode`, `Kbd`), which a string prop cannot express. The children are the accessible name.
+
+Display-only atoms (`Tag`, `BadgeDot`, `Kbd`, typography) are not interactive and keep `children`.
+
 ## Refs
 
 React 19 ref-as-prop. No `forwardRef` wrapper needed — `ref` is destructured like any other prop:
