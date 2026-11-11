@@ -1,6 +1,7 @@
 import "./tokens/tokens.css"
 
 export { Button, type ButtonProps } from "./components/atoms/interactive/Button"
+export { ButtonLink, type ButtonLinkProps } from "./components/atoms/interactive/ButtonLink"
 export { Spinner, type SpinnerProps } from "./components/atoms/interactive/Spinner"
 export { VisuallyHidden, type VisuallyHiddenProps } from "./components/atoms/interactive/VisuallyHidden"
 export { Blockquote } from "./components/atoms/typography/Blockquote"

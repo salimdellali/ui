@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `ButtonLink` atom: native `<a>` with required `href` and `label`, styled like `Button` (`variant`, `size`, icon slots, `isIconOnly`, `isFullWidth`), with new-tab handling
 - `Button` atom: native `<button>` with required `label`, `variant` (`primary`/`secondary`/`ghost`/`danger`), `size` (`sm`/`md`/`lg`), `isDisabled`, `isLoading` (keeps width, sets `aria-busy`), `isIconOnly`, `isFullWidth`, `startIcon`/`endIcon` slots, and `ref` as a prop
 - `Spinner` atom: `role="status"` loading indicator with a hidden label, `size` (`sm`/`md`/`lg`), inherits text color, fades instead of spinning under `prefers-reduced-motion`
 - `VisuallyHidden` atom: screen-reader-only text that takes no visual space
