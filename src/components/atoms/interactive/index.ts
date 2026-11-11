@@ -1,3 +1,4 @@
+export { BadgeDot, type BadgeDotProps } from "./BadgeDot"
 export { Button, type ButtonProps } from "./Button"
 export { ButtonLink, type ButtonLinkProps } from "./ButtonLink"
 export { Link, type LinkProps } from "./Link"

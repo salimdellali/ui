@@ -1,5 +1,6 @@
 import "./tokens/tokens.css"
 
+export { BadgeDot, type BadgeDotProps } from "./components/atoms/interactive/BadgeDot"
 export { Button, type ButtonProps } from "./components/atoms/interactive/Button"
 export { ButtonLink, type ButtonLinkProps } from "./components/atoms/interactive/ButtonLink"
 export { Link, type LinkProps } from "./components/atoms/interactive/Link"

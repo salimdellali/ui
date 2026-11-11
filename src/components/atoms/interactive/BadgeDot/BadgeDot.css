@@ -1,0 +1,36 @@
+.sd-badge-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: var(--lh-normal);
+  color: var(--fg);
+}
+
+/* The dot is a pseudo-element, so it never reaches the accessibility tree. */
+.sd-badge-dot::before {
+  content: "";
+  flex: none;
+  inline-size: var(--sp-2);
+  block-size: var(--sp-2);
+  background-color: var(--fg-subtle);
+  border-radius: var(--r-pill);
+}
+
+.sd-badge-dot[data-variant="success"]::before {
+  background-color: var(--success);
+}
+
+.sd-badge-dot[data-variant="warning"]::before {
+  background-color: var(--warning);
+}
+
+.sd-badge-dot[data-variant="danger"]::before {
+  background-color: var(--danger);
+}
+
+.sd-badge-dot[data-variant="info"]::before {
+  background-color: var(--info);
+}
