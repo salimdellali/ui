@@ -1,0 +1,51 @@
+.sd-spinner {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  inline-size: var(--sp-5);
+  block-size: var(--sp-5);
+  vertical-align: middle;
+}
+
+.sd-spinner[data-size="sm"] {
+  inline-size: var(--sp-4);
+  block-size: var(--sp-4);
+}
+
+.sd-spinner[data-size="lg"] {
+  inline-size: var(--sp-6);
+  block-size: var(--sp-6);
+}
+
+.sd-spinner::before {
+  content: "";
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
+  border: var(--bw-2) solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: var(--r-pill);
+  animation: sd-spinner-spin calc(var(--dur-slow) * 3) linear infinite;
+}
+
+@keyframes sd-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced motion: no rotation, a slow fade keeps the "busy" signal. */
+@media (prefers-reduced-motion: reduce) {
+  .sd-spinner::before {
+    animation: sd-spinner-pulse calc(var(--dur-slow) * 6) var(--ease-std) infinite alternate;
+  }
+}
+
+@keyframes sd-spinner-pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.35;
+  }
+}
