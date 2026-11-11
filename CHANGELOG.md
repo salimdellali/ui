@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `Kbd` atom: `<kbd>` keycap; nest `Kbd` inside `Kbd` for key combinations
 - `BadgeDot` atom: status text with a decorative dot, typed `variant` (`neutral`/`success`/`warning`/`danger`/`info`) mapped to status tokens
 - `Tag` atom: pill label with `variant` (`neutral`/`outline`/`success`/`warning`/`danger`/`info`) and an optional dismiss button (`onDismiss` + required `dismissLabel`)
 - `Link` atom: native `<a>` with required `href`, `variant` (`inline`/`standalone`), and new-tab handling for `target="_blank"` (`rel="noopener noreferrer"`, hidden "opens in a new tab" text via `newTabLabel`, decorative arrow)

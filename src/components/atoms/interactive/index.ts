@@ -1,6 +1,7 @@
 export { BadgeDot, type BadgeDotProps } from "./BadgeDot"
 export { Button, type ButtonProps } from "./Button"
 export { ButtonLink, type ButtonLinkProps } from "./ButtonLink"
+export { Kbd, type KbdProps } from "./Kbd"
 export { Link, type LinkProps } from "./Link"
 export { Spinner, type SpinnerProps } from "./Spinner"
 export { Tag, type TagProps } from "./Tag"
