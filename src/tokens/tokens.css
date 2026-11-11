@@ -147,6 +147,39 @@
   --selection-bg: light-dark(var(--sd-yellow-dark), var(--sd-yellow-deep));
   --selection-fg: light-dark(var(--sd-ink), var(--sd-black));
 
+  /* Status: text/icon color, tinted background, and solid-fill states.
+     Each text color meets WCAG AA (4.5:1) on its own -bg and on --bg.
+     Yellow, green and cyan primitives are too light for text on a light
+     tint, so they are darkened with color-mix() instead of adding primitives. */
+  --success: light-dark(color-mix(in srgb, var(--sd-green-deep) 85%, var(--sd-black)), var(--sd-green-dark));
+  --success-bg: light-dark(
+    color-mix(in srgb, var(--sd-green) 14%, var(--sd-white)),
+    color-mix(in srgb, var(--sd-green) 20%, var(--sd-black))
+  );
+  --warning: light-dark(color-mix(in srgb, var(--sd-yellow-deep) 50%, var(--sd-black)), var(--sd-yellow));
+  --warning-bg: light-dark(
+    color-mix(in srgb, var(--sd-yellow) 22%, var(--sd-white)),
+    color-mix(in srgb, var(--sd-yellow) 16%, var(--sd-black))
+  );
+  --danger: light-dark(var(--sd-red-deep), var(--sd-red-dark));
+  --danger-hover: light-dark(
+    color-mix(in srgb, var(--sd-red-deep) 85%, var(--sd-black)),
+    color-mix(in srgb, var(--sd-red-dark) 88%, var(--sd-white))
+  );
+  --danger-press: light-dark(
+    color-mix(in srgb, var(--sd-red-deep) 70%, var(--sd-black)),
+    color-mix(in srgb, var(--sd-red-dark) 76%, var(--sd-white))
+  );
+  --danger-bg: light-dark(
+    color-mix(in srgb, var(--sd-red) 14%, var(--sd-white)),
+    color-mix(in srgb, var(--sd-red) 20%, var(--sd-black))
+  );
+  --info: light-dark(color-mix(in srgb, var(--sd-cyan-deep) 75%, var(--sd-black)), var(--sd-cyan-dark));
+  --info-bg: light-dark(
+    color-mix(in srgb, var(--sd-cyan) 16%, var(--sd-white)),
+    color-mix(in srgb, var(--sd-cyan) 18%, var(--sd-black))
+  );
+
   /* ---------- BRAND COLOR ALIASES (theme-aware) ---------- */
   --color-yellow: light-dark(var(--sd-yellow), var(--sd-yellow-dark));
   --color-yellow-deep: light-dark(var(--sd-yellow-deep), var(--sd-yellow-deep-dark));

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Added
+- Status color tokens: `--success`, `--warning`, `--danger`, `--info`, each with a `-bg` tint, plus `--danger-hover` and `--danger-press` for solid fills. Theme-aware through `light-dark()`, text on tint meets WCAG AA in both themes.
+
 ### Changed
 - **Breaking:** `react` and `react-dom` peer dependencies now require `>=19.0.0` (was `>=18.0.0`). Components take `ref` as a regular prop, which React 18 silently drops. Consumers on React 18 must upgrade to React 19 or stay on `0.10.x`.
 

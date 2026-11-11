@@ -90,6 +90,10 @@ const SEMANTIC_GROUPS: Array<{ label: string; tokens: CSSToken[] }> = [
   { label: "Accent", tokens: ["--accent", "--accent-hover", "--accent-press"] },
   { label: "Link", tokens: ["--link", "--link-hover"] },
   { label: "Selection", tokens: ["--selection-bg", "--selection-fg"] },
+  { label: "Success", tokens: ["--success", "--success-bg"] },
+  { label: "Warning", tokens: ["--warning", "--warning-bg"] },
+  { label: "Danger", tokens: ["--danger", "--danger-hover", "--danger-press", "--danger-bg"] },
+  { label: "Info", tokens: ["--info", "--info-bg"] },
 ]
 
 // ---- Stories ----
