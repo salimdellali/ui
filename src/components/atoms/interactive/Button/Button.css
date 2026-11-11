@@ -1,0 +1,182 @@
+.sd-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  box-sizing: border-box;
+  margin: 0;
+  padding-block: var(--sp-3);
+  padding-inline: var(--sp-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-normal);
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--fg);
+  background-color: transparent;
+  border: var(--bw-1) solid transparent;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-std),
+    border-color var(--dur-fast) var(--ease-std),
+    color var(--dur-fast) var(--ease-std);
+}
+
+.sd-button__label {
+  text-decoration: underline;
+  text-decoration-thickness: var(--bw-1);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness var(--dur-fast) var(--ease-std);
+}
+
+/* Icons are drawn larger than the text box; the negative margin keeps a
+   button with an icon the same height as one without. */
+.sd-button__icon {
+  display: inline-flex;
+  flex: none;
+  margin-block: -0.125em;
+}
+
+.sd-button__icon > svg {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+}
+
+/* ---------- sizes ---------- */
+.sd-button[data-size="sm"] {
+  padding-block: var(--sp-2);
+  padding-inline: var(--sp-3);
+}
+
+.sd-button[data-size="lg"] {
+  padding-block: var(--sp-4);
+  padding-inline: var(--sp-5);
+  font-size: var(--fs-base);
+}
+
+.sd-button[data-icon-only] {
+  padding-inline: var(--sp-3);
+}
+
+.sd-button[data-icon-only][data-size="sm"] {
+  padding-inline: var(--sp-2);
+}
+
+.sd-button[data-icon-only][data-size="lg"] {
+  padding-inline: var(--sp-4);
+}
+
+.sd-button[data-icon-only] > .sd-button__icon {
+  margin-inline: -0.125em;
+}
+
+.sd-button[data-full-width] {
+  display: flex;
+  inline-size: 100%;
+}
+
+/* ---------- variants ---------- */
+.sd-button[data-variant="primary"] {
+  color: var(--fg-on-accent);
+  background-color: var(--accent);
+}
+
+.sd-button[data-variant="secondary"] {
+  background-color: var(--bg-raised);
+  border-color: var(--border-strong);
+}
+
+.sd-button[data-variant="danger"] {
+  color: var(--fg-on-accent);
+  background-color: var(--danger);
+}
+
+@media (hover: hover) {
+  .sd-button:hover:not(:disabled, [aria-disabled="true"]) > .sd-button__label {
+    text-decoration-thickness: var(--bw-2);
+  }
+
+  .sd-button[data-variant="primary"]:hover:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--accent-hover);
+  }
+
+  .sd-button[data-variant="secondary"]:hover:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--bg-alt);
+    border-color: var(--fg-subtle);
+  }
+
+  .sd-button[data-variant="ghost"]:hover:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--bg-sunken);
+  }
+
+  .sd-button[data-variant="danger"]:hover:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--danger-hover);
+  }
+}
+
+.sd-button[data-variant="primary"]:active:not(:disabled, [aria-disabled="true"]) {
+  background-color: var(--accent-press);
+}
+
+.sd-button[data-variant="secondary"]:active:not(:disabled, [aria-disabled="true"]) {
+  background-color: var(--bg-sunken);
+  border-color: var(--fg-subtle);
+}
+
+.sd-button[data-variant="ghost"]:active:not(:disabled, [aria-disabled="true"]) {
+  background-color: var(--border);
+}
+
+.sd-button[data-variant="danger"]:active:not(:disabled, [aria-disabled="true"]) {
+  background-color: var(--danger-press);
+}
+
+/* ---------- states ---------- */
+.sd-button:focus-visible {
+  outline: var(--bw-2) solid var(--border-focus);
+  outline-offset: var(--bw-2);
+  box-shadow: var(--shadow-focus);
+}
+
+.sd-button[data-variant="danger"]:focus-visible {
+  box-shadow: var(--shadow-focus-danger);
+}
+
+.sd-button:disabled {
+  color: var(--fg-disabled);
+  background-color: var(--bg-sunken);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+.sd-button[data-variant="ghost"]:disabled {
+  background-color: transparent;
+}
+
+/* Content stays in the layout so the width does not jump while loading. */
+.sd-button[data-loading] {
+  cursor: progress;
+}
+
+.sd-button[data-loading] > :not(.sd-button__spinner) {
+  opacity: 0;
+}
+
+.sd-button__spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  inline-size: 1.25em;
+  block-size: 1.25em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-button,
+  .sd-button__label {
+    transition: none;
+  }
+}
