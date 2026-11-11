@@ -61,7 +61,7 @@ Components/
 | Tool                      | Role                          | Why                                                              |
 | ------------------------- | ----------------------------- | ---------------------------------------------------------------- |
 | **TypeScript 6**          | Language                      | Typed props = in-editor docs for consumers                       |
-| **React 19**              | UI framework                  | Peer dependency — `>=18.0.0` range, currently resolves to 19     |
+| **React 19**              | UI framework                  | Peer dependency — `>=19.0.0` range (ref-as-prop needs React 19)  |
 | **Pure CSS**              | Styling                       | Zero runtime, no peer deps, no bundle bloat                      |
 | **CSS custom properties** | Design tokens                 | Semantic naming, theme-aware, works with any styling approach    |
 | **Vite 8 (lib mode)**     | Package build                 | Outputs ESM + CJS, handles CSS bundling                          |

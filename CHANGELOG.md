@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- **Breaking:** `react` and `react-dom` peer dependencies now require `>=19.0.0` (was `>=18.0.0`). Components take `ref` as a regular prop, which React 18 silently drops. Consumers on React 18 must upgrade to React 19 or stay on `0.10.x`.
+
 ## [0.10.0] - 2026-08-04
 
 ### Added
