@@ -1,0 +1,89 @@
+.sd-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding-block: var(--sp-1);
+  padding-inline: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  white-space: nowrap;
+  color: var(--fg);
+  background-color: var(--bg-sunken);
+  border: var(--bw-1) solid transparent;
+  border-radius: var(--r-pill);
+}
+
+.sd-tag[data-variant="outline"] {
+  color: var(--fg-muted);
+  background-color: transparent;
+  border-color: var(--border-strong);
+}
+
+.sd-tag[data-variant="success"] {
+  color: var(--success);
+  background-color: var(--success-bg);
+}
+
+.sd-tag[data-variant="warning"] {
+  color: var(--warning);
+  background-color: var(--warning-bg);
+}
+
+.sd-tag[data-variant="danger"] {
+  color: var(--danger);
+  background-color: var(--danger-bg);
+}
+
+.sd-tag[data-variant="info"] {
+  color: var(--info);
+  background-color: var(--info-bg);
+}
+
+/* 24px hit target inside a shorter pill: the negative margins let the button
+   overflow the padding instead of stretching the tag. */
+.sd-tag__dismiss {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--sp-5);
+  block-size: var(--sp-5);
+  margin-block: calc(var(--sp-2) * -1);
+  margin-inline-end: calc(var(--sp-2) * -1);
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-std);
+}
+
+.sd-tag__dismiss > svg {
+  inline-size: var(--sp-3);
+  block-size: var(--sp-3);
+  stroke-width: 1.5;
+}
+
+@media (hover: hover) {
+  .sd-tag__dismiss:hover {
+    background-color: color-mix(in srgb, currentColor 16%, transparent);
+  }
+}
+
+.sd-tag__dismiss:active {
+  background-color: color-mix(in srgb, currentColor 28%, transparent);
+}
+
+.sd-tag__dismiss:focus-visible {
+  outline: var(--bw-2) solid var(--border-focus);
+  outline-offset: calc(var(--bw-1) * -1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-tag__dismiss {
+    transition: none;
+  }
+}

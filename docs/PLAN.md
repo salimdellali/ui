@@ -29,9 +29,10 @@ Components/
       H1, H2, H3
       P, Lead, Blockquote
       InlineCode
-    Interactive/               ← non-form interactive elements
-      Button
+    Interactive/               ← non-form interactive elements and the small pieces they need
+      Button, ButtonLink, Link
       Tag, BadgeDot, Kbd
+      Spinner, VisuallyHidden
     Form/                      ← form controls
       Input, Select, Textarea
       Checkbox, Radio
@@ -61,7 +62,7 @@ Components/
 | Tool                      | Role                          | Why                                                              |
 | ------------------------- | ----------------------------- | ---------------------------------------------------------------- |
 | **TypeScript 6**          | Language                      | Typed props = in-editor docs for consumers                       |
-| **React 19**              | UI framework                  | Peer dependency — `>=18.0.0` range, currently resolves to 19     |
+| **React 19**              | UI framework                  | Peer dependency — `>=19.0.0` range (ref-as-prop needs React 19)  |
 | **Pure CSS**              | Styling                       | Zero runtime, no peer deps, no bundle bloat                      |
 | **CSS custom properties** | Design tokens                 | Semantic naming, theme-aware, works with any styling approach    |
 | **Vite 8 (lib mode)**     | Package build                 | Outputs ESM + CJS, handles CSS bundling                          |
@@ -83,7 +84,7 @@ salimdellali-ui/
 │   ├── components/
 │   │   ├── atoms/
 │   │   │   ├── typography/        ← semantic HTML tags, token-wired, zero props for basic use (H1, P, Lead...)
-│   │   │   ├── interactive/       ← single non-form elements (Button, Tag, Kbd...)
+│   │   │   ├── interactive/       ← single non-form elements (Button, Link, Tag, Kbd...)
 │   │   │   └── form/              ← single form controls (Input, Select, Checkbox...)
 │   │   ├── molecules/             ← composed from atoms (Field, Banner...)
 │   │   ├── organisms/             ← complex self-contained sections (Card, Modal, Tabs...)
@@ -141,7 +142,7 @@ function FeaturePage() {
     <Card>
       <H1>Card title</H1>
       <P>Card body text.</P>
-      <Button variant="primary" onClick={handleClick}>Get started</Button>
+      <Button variant="primary" label="Get started" onClick={handleClick} />
     </Card>
   )
 }
@@ -186,9 +187,9 @@ Each component has a `.stories.tsx` file colocated with it:
 ```tsx
 // Button.stories.tsx
 export const Primary: Story = {
-  args: { variant: "primary", children: "Button" },
+  args: { variant: "primary", label: "Button" },
 }
-export const Ghost: Story = { args: { variant: "ghost", children: "Button" } }
+export const Ghost: Story = { args: { variant: "ghost", label: "Button" } }
 
 // Interaction test
 export const ClickTest: Story = {
@@ -253,7 +254,7 @@ Versioning: semantic versioning (`0.1.0` → `0.1.1` patch, `0.2.0` minor, `1.0.
 - [x] 4. Port **Atoms / Typography**: `H1` only
 - [x] 5. Smoke-test npm publishing — build `dist/`, publish a pre-release (`0.4.0-alpha.1`), install in a fresh React project, verify `H1` renders correctly end-to-end
 - [x] 6. Port **Atoms / Typography** (remaining): `H2`, `H3`, `P`, `Lead`, `Blockquote`, `InlineCode` (`H4` skipped — not needed)
-- [ ] 7. Port **Atoms / Interactive**: `Button`, `Tag`, `BadgeDot`, `Kbd`
+- [x] 7. Port **Atoms / Interactive**: `Button`, `ButtonLink`, `Link`, `Tag`, `BadgeDot`, `Kbd`, `Spinner`, `VisuallyHidden`
 - [ ] 8. Port **Atoms / Form**: `Input`, `Select`, `Textarea`, `Checkbox`, `Radio`
 - [ ] 9. Port **Molecules**: `Field`, `Banner`, `Citation`
 - [ ] 10. Port **Organisms**: `Card`, `FeaturedCard`, `Modal`, `Tabs`, `Accordion`, `Table`, `CodeBlock`

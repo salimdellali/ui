@@ -1,5 +1,21 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- `Kbd` atom: `<kbd>` keycap; nest `Kbd` inside `Kbd` for key combinations
+- `BadgeDot` atom: status text with a decorative dot, typed `variant` (`neutral`/`success`/`warning`/`danger`/`info`) mapped to status tokens
+- `Tag` atom: pill label with `variant` (`neutral`/`outline`/`success`/`warning`/`danger`/`info`) and an optional dismiss button (`onDismiss` + required `dismissLabel`)
+- `Link` atom: native `<a>` with required `href`, `variant` (`inline`/`standalone`), and new-tab handling for `target="_blank"` (`rel="noopener noreferrer"`, hidden "opens in a new tab" text via `newTabLabel`, decorative arrow)
+- `ButtonLink` atom: native `<a>` with required `href` and `label`, styled like `Button` (`variant`, `size`, icon slots, `isIconOnly`, `isFullWidth`), with new-tab handling
+- `Button` atom: native `<button>` with required `label`, `variant` (`primary`/`secondary`/`ghost`/`danger`), `size` (`sm`/`md`/`lg`), `isDisabled`, `isLoading` (keeps width, sets `aria-busy`), `isIconOnly`, `isFullWidth`, `startIcon`/`endIcon` slots, and `ref` as a prop
+- `Spinner` atom: `role="status"` loading indicator with a hidden label, `size` (`sm`/`md`/`lg`), inherits text color, fades instead of spinning under `prefers-reduced-motion`
+- `VisuallyHidden` atom: screen-reader-only text that takes no visual space
+- Status color tokens: `--success`, `--warning`, `--danger`, `--info`, each with a `-bg` tint, plus `--danger-hover` and `--danger-press` for solid fills. Theme-aware through `light-dark()`, text on tint meets WCAG AA in both themes.
+
+### Changed
+- **Breaking:** `react` and `react-dom` peer dependencies now require `>=19.0.0` (was `>=18.0.0`). Components take `ref` as a regular prop, which React 18 silently drops. Consumers on React 18 must upgrade to React 19 or stay on `0.10.x`.
+
 ## [0.10.0] - 2026-08-04
 
 ### Added
