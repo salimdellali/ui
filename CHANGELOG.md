@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `Tag` atom: pill label with `variant` (`neutral`/`outline`/`success`/`warning`/`danger`/`info`) and an optional dismiss button (`onDismiss` + required `dismissLabel`)
 - `Link` atom: native `<a>` with required `href`, `variant` (`inline`/`standalone`), and new-tab handling for `target="_blank"` (`rel="noopener noreferrer"`, hidden "opens in a new tab" text via `newTabLabel`, decorative arrow)
 - `ButtonLink` atom: native `<a>` with required `href` and `label`, styled like `Button` (`variant`, `size`, icon slots, `isIconOnly`, `isFullWidth`), with new-tab handling
 - `Button` atom: native `<button>` with required `label`, `variant` (`primary`/`secondary`/`ghost`/`danger`), `size` (`sm`/`md`/`lg`), `isDisabled`, `isLoading` (keeps width, sets `aria-busy`), `isIconOnly`, `isFullWidth`, `startIcon`/`endIcon` slots, and `ref` as a prop

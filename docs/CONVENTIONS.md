@@ -45,6 +45,8 @@ One exception: `Link` takes `children` instead of `label`. Link text is prose th
 
 Display-only atoms (`Tag`, `BadgeDot`, `Kbd`, typography) are not interactive and keep `children`.
 
+When a display component grows an optional control, that control's name is a required `{action}Label` prop tied to its callback: `Tag` requires `dismissLabel` whenever `onDismiss` is set. No built-in default text, so nothing ships untranslated or ambiguous ("Dismiss" five times in a row).
+
 ## Refs
 
 React 19 ref-as-prop. No `forwardRef` wrapper needed — `ref` is destructured like any other prop:
