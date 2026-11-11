@@ -1,5 +1,6 @@
 import "./tokens/tokens.css"
 
+export { VisuallyHidden, type VisuallyHiddenProps } from "./components/atoms/interactive/VisuallyHidden"
 export { Blockquote } from "./components/atoms/typography/Blockquote"
 export { H1 } from "./components/atoms/typography/H1"
 export { H2 } from "./components/atoms/typography/H2"

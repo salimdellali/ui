@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `VisuallyHidden` atom: screen-reader-only text that takes no visual space
 - Status color tokens: `--success`, `--warning`, `--danger`, `--info`, each with a `-bg` tint, plus `--danger-hover` and `--danger-press` for solid fills. Theme-aware through `light-dark()`, text on tint meets WCAG AA in both themes.
 
 ### Changed
